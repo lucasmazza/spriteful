@@ -1,0 +1,3 @@
+module Spriteful
+  # Your code goes here...
+end
