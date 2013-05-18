@@ -34,9 +34,9 @@ spriteful images/icons --css stylesheets ---img images
 spriteful --rails
 ```
 
-### Available options
+## Available options
 
-* `--template`.
-* `--css`.
-* `--img`.
-* `--[no]-rails`.
+* `--css` - Directory to save the generated stylesheet(s), instead of copying them to the clipboard.
+* `--img`. - Directory to save the generated image(s).
+* `--rails`. - Forces rails specific settings, see [Spriteful and Rails](#spriteful-and-rails) for more info.
+* `--template`. - Use a custom ERB/SCSS template file to use with Compass.
