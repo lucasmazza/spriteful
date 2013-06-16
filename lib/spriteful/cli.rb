@@ -2,14 +2,14 @@ require 'thor/group'
 
 module Spriteful
   class CLI < Thor::Group
-    desc 'Generates image sprites with corresponding stylesheets using Compass spriting tools.'
+    desc 'Generates image sprites with corresponding stylesheets.'
 
-    argument :sources, type: :array, required: true, desc: 'Image sources to generate the sprites.'
+    argument :sources, type: :array, desc: 'Images to generate the sprites.'
 
-    class_option :css, banner: 'CSS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.'
-    class_option :img, banner: 'IMAGES_DIR', type: :string, desc: 'Directory to save the generated image(s).', default: Dir.pwd
-    class_option :rails, type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
-    class_option :template, banner: 'TEMPLATE_PATH', type: :string, desc: 'Alternative ERB/SCSS template file to use with Compass.'
+    class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.'
+    class_option :format, aliases: '-f', banner: 'FORMAT', type: :string, desc: 'Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".', default: 'css'
+    class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
+    class_option :rails, aliases: '-r', type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
 
     def self.banner
       'spriteful sources [options]'
@@ -40,8 +40,8 @@ module Spriteful
     def prepare_options
       self.options = options.to_hash
 
-      options['css'] ||= File.expand_path('app/assets/stylesheets')
-      options['img'] ||= File.expand_path('app/assets/images')
+      options['stylesheets'] ||= File.expand_path('app/assets/stylesheets')
+      options['destination'] ||= File.expand_path('app/assets/images')
     end
   end
 end

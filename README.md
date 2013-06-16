@@ -1,11 +1,6 @@
 # Spriteful
 
-Spriteful is a sprite generator tool built on top of [Compass](https://github.com/chriseppstein/compass).
-
-## Why
-
-Compass has great features for dealing with sprites, but is not my favorite tool for every kind
-of project. So, I want to use Compass internals without having the whole Compass as a dependency.
+Spriteful is a sprite generator tool.
 
 ## Usage
 
@@ -19,16 +14,17 @@ Boom! Spriteful will generate a `icons.png` in your working directory and copy t
 for your sprite to your clipboard.
 
 ```bash
-spriteful images/icons --css stylesheets ---img images
+# TODO:
+spriteful images/icons -s stylesheets -d images
 ```
 
-### Multiple sprites
+### TODO: Multiple sprites
 
 ```bash
-spriteful images/icons --css stylesheets ---img images
+spriteful images/icons -s stylesheets -d images
 ```
 
-### Spriteful and Rails
+### TODO: Spriteful and Rails
 
 ```bash
 spriteful --rails
@@ -36,7 +32,7 @@ spriteful --rails
 
 ## Available options
 
-* `--css` - Directory to save the generated stylesheet(s), instead of copying them to the clipboard.
-* `--img`. - Directory to save the generated image(s).
-* `--rails`. - Forces rails specific settings, see [Spriteful and Rails](#spriteful-and-rails) for more info.
-* `--template`. - Use a custom ERB/SCSS template file to use with Compass.
+* `--stylesheets` (`-s`) - Directory to save the generated stylesheet(s), instead of copying them to the clipboard.
+* `--destination` (`-d`) - Directory to save the generated image(s).
+* `--rails` (`-r`) - Forces rails specific settings, see [Spriteful and Rails](#spriteful-and-rails) for more info.
+* `--format` (`-f`) - Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".
