@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'spriteful'
 require 'spriteful/cli'
 
 Spriteful::CLI.start

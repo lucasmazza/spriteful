@@ -21,7 +21,13 @@ module Spriteful
         prepare_options
         options.delete('rails')
       end
+
       puts [sources, options].flatten.inspect
+
+      sources.each do |source|
+        sprite = Spriteful::Sprite.new(File.expand_path(source), options['destination'])
+        sprite.combine!
+      end
     end
 
     private
@@ -40,8 +46,8 @@ module Spriteful
     def prepare_options
       self.options = options.to_hash
 
-      options['stylesheets'] ||= File.expand_path('app/assets/stylesheets')
-      options['destination'] ||= File.expand_path('app/assets/images')
+      options['stylesheets'] ||= File.expand_path('app/assets/stylesheets/sprites')
+      options['destination'] ||= File.expand_path('app/assets/images/sprites')
     end
   end
 end
