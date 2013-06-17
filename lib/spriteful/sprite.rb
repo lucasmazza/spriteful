@@ -1,4 +1,4 @@
-require 'rmagick'
+require 'RMagick'
 
 module Spriteful
   # Public: the 'Sprite' class is responsible for combining a directory
