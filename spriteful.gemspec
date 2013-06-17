@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['lucastmazza@gmail.com']
   spec.description   = 'A sprite generation tool'
   spec.summary       = ''
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/lucasmazza/spriteful'
   spec.license       = 'Apache 2.0'
 
   spec.files         = Dir['LICENSE', 'README.md', 'lib/**/*']
