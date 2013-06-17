@@ -21,10 +21,11 @@ module Spriteful
     # destination - the destination directory where the sprite should be saved.
     def initialize(source, destination)
       source_pattern = File.join(source, '*.png')
+      sources = Dir[source_pattern].sort
 
       @name = File.basename(source)
       @path = "#{File.join(destination, name)}.png"
-      @list = Magick::ImageList.new(*Dir[source_pattern])
+      @list = Magick::ImageList.new(*sources)
     end
 
     # Public: combines the source images into a single one,
