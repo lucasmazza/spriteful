@@ -13,7 +13,6 @@ describe Spriteful::Sprite do
   end
 
   describe '#combine!' do
-
     it 'combines the source images into a single image' do
       sprite = Spriteful::Sprite.new(source, destination)
       combined = sprite.combine!

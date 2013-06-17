@@ -1,7 +1,9 @@
 require 'thor/group'
+require 'spriteful/actions'
 
 module Spriteful
   class CLI < Thor::Group
+    include Spriteful::Actions
     desc 'Generates image sprites with corresponding stylesheets.'
 
     argument :sources, type: :array, desc: 'Images to generate the sprites.'
@@ -16,21 +18,34 @@ module Spriteful
     end
 
     def execute
-      if options.rails?
-        sources.concat(detect_sources).uniq!
-        prepare_options
-        options.delete('rails')
-      end
-
-      puts [sources, options].flatten.inspect
+      prepare_options!
 
       sources.each do |source|
         sprite = Spriteful::Sprite.new(File.expand_path(source), options['destination'])
         sprite.combine!
+        root = options['stylesheets'] || Dir.pwd
+        stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(root), options['format'])
+        if options['stylesheets']
+          stylesheet.write(File.expand_path(options['stylesheets']))
+        else
+          copy stylesheet.render
+        end
       end
     end
 
     private
+    # Internal: Change the `options` hash if necessary, based on the
+    # 'rails' flag.
+    #
+    # Returns nothing.
+    def prepare_options!
+      if options.rails?
+        sources.concat(detect_sources).uniq!
+        set_rails_defaults
+        options.delete('rails')
+      end
+    end
+
     # Internal: Detects possible source directories in Rails applications
     # that are present inside the 'images/sprites' asset path.
     #
@@ -43,7 +58,7 @@ module Spriteful
     # that is converted back to a plain Hash (instead of a 'HashWithIndifferentAccess')
     #
     # Returns nothing.
-    def prepare_options
+    def set_rails_defaults
       self.options = options.to_hash
 
       options['stylesheets'] ||= File.expand_path('app/assets/stylesheets/sprites')
