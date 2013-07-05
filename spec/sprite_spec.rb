@@ -5,6 +5,15 @@ describe Spriteful::Sprite do
   let(:source) { File.expand_path('spec/fixtures/simple') }
   let(:destination) { File.expand_path('tmp') }
 
+  describe 'initialization' do
+    it 'raises an error if the source directory is empty' do
+      source = File.expand_path('spec/fixtures/missing')
+      expect {
+        Spriteful::Sprite.new(source, destination)
+        }.to raise_error(Spriteful::EmptySourceError)
+    end
+  end
+
   describe '#path' do
     it 'returns the path where the combined image will be saved' do
       sprite = Spriteful::Sprite.new(source, destination)

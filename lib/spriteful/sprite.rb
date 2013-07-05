@@ -1,6 +1,7 @@
 require 'RMagick'
 
 module Spriteful
+  class EmptySourceError < Thor::Error; end
   # Public: the 'Sprite' class is responsible for combining a directory
   # of images into a single one, and providing the required information
   # about the related images.
@@ -22,6 +23,10 @@ module Spriteful
     def initialize(source, destination)
       source_pattern = File.join(source, '*.png')
       sources = Dir[source_pattern].sort
+
+      if sources.none? { |path| File.exist?(path) }
+        raise EmptySourceError, "No image sources found at '#{source}'."
+      end
 
       @name = File.basename(source)
       @path = "#{File.join(destination, name)}.png"
