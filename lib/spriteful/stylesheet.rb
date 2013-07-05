@@ -10,6 +10,9 @@ module Spriteful
     # Public: returns the 'Sprite' of this Stylesheet.
     attr_reader :sprite
 
+    # Public: returns the 'Time' when the Stylesheet was generated.
+    attr_reader :created_at
+
     # Public: Initialize a Stylesheet
     #
     # sprite - a 'Sprite' object to create the Stylesheet.
@@ -38,6 +41,7 @@ module Spriteful
     #
     # Returns nothing.
     def write(destination)
+      @created_at ||= Time.now
       path = File.join(destination, "#{sprite.name}.#{format}")
       File.open(path, 'w') { |io| io.write(render) }
     end

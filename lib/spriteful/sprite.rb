@@ -53,6 +53,8 @@ module Spriteful
       end
     end
 
+    alias :images :each_image
+
     protected
     # Internal: wraps a given 'Magick::Image' object into a plain
     # 'Image' instance, a simple 'Struct' that abstracts the RMagick
