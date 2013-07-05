@@ -36,13 +36,22 @@ module Spriteful
       ERB.new(File.read(source)).result(binding)
     end
 
+    # Public: returns this Stylesheet name, based
+    # on the Sprite name and the current format.
+    #
+    # Returns a String.
+    def name
+      "#{sprite.name}.#{format}"
+    end
+
     # Public: stores the stylesheet in a destination directory,
     # using the sprite name and the stylesheet format for the
     # stylesheet file name.
     #
     # Returns nothing.
     def write(destination)
-      path = File.join(destination, "#{sprite.name}.#{format}")
+      path = File.join(destination, name)
+      Spriteful.shell.say_path :stylesheet, path
       File.open(path, 'w') { |io| io.write(render) }
     end
 

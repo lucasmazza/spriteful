@@ -36,6 +36,7 @@ module Spriteful
       @list.each { |image| image.background_color = 'none' }
       combined = @list.append(true)
       FileUtils.mkdir_p(File.dirname(path))
+      Spriteful.shell.say_path :created, path
       combined.write(path)
       create_image(combined)
     end

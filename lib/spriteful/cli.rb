@@ -1,9 +1,6 @@
-require 'thor/group'
-require 'spriteful/actions'
-
 module Spriteful
-  class CLI < Thor::Group
-    include Spriteful::Actions
+  class CLI < ::Thor::Group
+    include Spriteful::Thor::Actions
     desc 'Generates image sprites with corresponding stylesheets.'
 
     argument :sources, type: :array, desc: 'Images to generate the sprites.'
@@ -18,6 +15,7 @@ module Spriteful
     end
 
     def execute
+      Spriteful.shell.wrap(self.shell)
       prepare_options!
 
       sources.each do |source|
@@ -28,7 +26,7 @@ module Spriteful
         if options['stylesheets']
           stylesheet.write(File.expand_path(options['stylesheets']))
         else
-          copy stylesheet.render
+          copy(stylesheet.name, stylesheet.render)
         end
       end
     end
