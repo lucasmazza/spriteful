@@ -13,6 +13,9 @@ module Spriteful
     # Public: returns the 'Time' when the Stylesheet was generated.
     attr_reader :created_at
 
+    # Public: returns the path where the Stylesheet should be stored.
+    attr_reader :path
+
     # Public: Initialize a Stylesheet
     #
     # sprite - a 'Sprite' object to create the Stylesheet.
@@ -23,6 +26,7 @@ module Spriteful
       @root = Pathname.new(root)
       @format = format
       @sprite_position = 0
+      @path = @root.join(name)
     end
 
     # Public: renders the CSS code for this Stylesheet.
@@ -42,17 +46,6 @@ module Spriteful
     # Returns a String.
     def name
       "#{sprite.name}.#{format}"
-    end
-
-    # Public: stores the stylesheet in a destination directory,
-    # using the sprite name and the stylesheet format for the
-    # stylesheet file name.
-    #
-    # Returns nothing.
-    def write(destination)
-      path = File.join(destination, name)
-      Spriteful.shell.say_path :stylesheet, path
-      File.open(path, 'w') { |io| io.write(render) }
     end
 
     protected

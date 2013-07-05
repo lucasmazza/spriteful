@@ -1,7 +1,6 @@
 require 'RMagick'
 
 module Spriteful
-  class EmptySourceError < Thor::Error; end
   # Public: the 'Sprite' class is responsible for combining a directory
   # of images into a single one, and providing the required information
   # about the related images.
@@ -16,6 +15,7 @@ module Spriteful
     # Public: returns name of the sprite.
     attr_reader :name
 
+    # Public: returns the binary contents of the combined image.
     attr_reader :blob
 
     # Public: Initialize a Sprite.

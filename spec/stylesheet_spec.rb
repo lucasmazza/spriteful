@@ -23,22 +23,4 @@ describe Spriteful::Stylesheet do
       expect(output).to match(/%simple-sprite-red \{/)
     end
   end
-
-  describe '#write' do
-    it 'stores the stylesheet contents in the supplied destination' do
-      stylesheet = Spriteful::Stylesheet.new(sprite, destination, 'css')
-      stylesheet.write(destination)
-      stylesheet_path = File.join(destination, 'simple.css')
-
-      expect(File.exist?(stylesheet_path)).to be
-    end
-
-    it 'uses the supplied format as the stylesheet extension' do
-      stylesheet = Spriteful::Stylesheet.new(sprite, destination, 'scss')
-      stylesheet.write(destination)
-      stylesheet_path = File.join(destination, 'simple.scss')
-
-      expect(File.exist?(stylesheet_path)).to be
-    end
-  end
 end
