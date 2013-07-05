@@ -1,5 +1,6 @@
 module Spriteful
   class CLI < ::Thor::Group
+    include ::Thor::Actions
     include Spriteful::Thor::Actions
     desc 'Generates image sprites with corresponding stylesheets.'
 
@@ -21,6 +22,7 @@ module Spriteful
       sources.each do |source|
         sprite = Spriteful::Sprite.new(File.expand_path(source), options['destination'])
         sprite.combine!
+        create_file sprite.path, sprite.blob
         root = options['stylesheets'] || Dir.pwd
         stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(root), options['format'])
         if options['stylesheets']

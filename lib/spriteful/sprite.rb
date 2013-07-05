@@ -16,6 +16,8 @@ module Spriteful
     # Public: returns name of the sprite.
     attr_reader :name
 
+    attr_reader :blob
+
     # Public: Initialize a Sprite.
     #
     # source - the source directory where the sprite images are located.
@@ -36,14 +38,11 @@ module Spriteful
     # Public: combines the source images into a single one,
     # storing the combined image into the sprite path.
     #
-    # Returns the combined 'Image' object.
+    # Returns nothing.
     def combine!
       @list.each { |image| image.background_color = 'none' }
       combined = @list.append(true)
-      FileUtils.mkdir_p(File.dirname(path))
-      Spriteful.shell.say_path :created, path
-      combined.write(path)
-      create_image(combined)
+      @blob = combined.to_blob
     end
 
     # Public: exposes the source images found in the 'source'

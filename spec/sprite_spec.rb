@@ -22,18 +22,10 @@ describe Spriteful::Sprite do
   end
 
   describe '#combine!' do
-    it 'combines the source images into a single image' do
+    it 'sets the sprite blob' do
       sprite = Spriteful::Sprite.new(source, destination)
-      combined = sprite.combine!
-      expect(File.exist?(combined.path)).to be
-    end
-
-    it 'creates the destination directory if necessary' do
-      missing_destination = File.expand_path('tmp/missing')
-      FileUtils.rm_rf(missing_destination)
-      sprite = Spriteful::Sprite.new(source, missing_destination)
       sprite.combine!
-      expect(File.exist?(File.expand_path('tmp/missing/simple.png'))).to be
+      expect(sprite.blob).to be
     end
   end
 
