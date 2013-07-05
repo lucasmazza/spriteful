@@ -31,6 +31,7 @@ module Spriteful
     #
     # Returns the CSS code as a 'String'.
     def render
+      @created_at ||= Time.now
       source = File.expand_path("../stylesheets/template.#{format}.erb", __FILE__)
       ERB.new(File.read(source)).result(binding)
     end
@@ -41,7 +42,6 @@ module Spriteful
     #
     # Returns nothing.
     def write(destination)
-      @created_at ||= Time.now
       path = File.join(destination, "#{sprite.name}.#{format}")
       File.open(path, 'w') { |io| io.write(render) }
     end
