@@ -29,10 +29,10 @@ describe Spriteful::Sprite do
     end
   end
 
-  describe '#each_image' do
+  describe '#images' do
     it 'yields an object for each image found in the source directory' do
       sprite = Spriteful::Sprite.new(source, destination)
-      image = sprite.each_image.to_a.first
+      image = sprite.images.first
 
       expect(image.name).to eq('blue.png')
       expect(image.width).to eq(10)
