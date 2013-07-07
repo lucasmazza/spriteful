@@ -8,6 +8,8 @@ Lets say that you have your images in `images/icons/` and you want to generate a
 
 ```bash
 spriteful images/icons
+# create  icons.png
+# copy    icons.css
 ```
 
 Boom! Spriteful will generate a `icons.png` in your working directory and copy the respective CSS
@@ -20,6 +22,8 @@ of copying it to your clipboard.
 
 ```bash
 spriteful images/icons -s stylesheets -d images
+# create  images/icons.png
+# create  stylesheets/icons.css
 ```
 
 ### The CSS
@@ -40,6 +44,8 @@ instead of generating a class for each image in your sprite.
 
 ```bash
 spriteful images/icons -f scss
+# create  icons.png
+# copy    icons.scss
 ```
 
 ```scss
@@ -57,6 +63,10 @@ execution.
 
 ```bash
 spriteful images/icons images/flags -s stylesheets -d images
+# create  images/icons.png
+# create  stylesheets/icons.css
+# create  images/flags.png
+# create  stylesheets/flags.css
 ```
 
 ### Spriteful and Rails
