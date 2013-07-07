@@ -62,8 +62,8 @@ module Spriteful
     def set_rails_defaults
       self.options = options.to_hash
 
-      options['stylesheets'] ||= File.expand_path('app/assets/stylesheets/sprites')
-      options['destination'] ||= File.expand_path('app/assets/images/sprites')
+      options['stylesheets'] = File.expand_path('app/assets/stylesheets/sprites')
+      options['destination'] = File.expand_path('app/assets/images/sprites')
     end
   end
 end
