@@ -15,24 +15,28 @@ module Spriteful
     # Public: returns name of the sprite.
     attr_reader :name
 
+    # Public: returns filename of the sprite.
+    attr_reader :filename
+
     # Public: returns the binary contents of the combined image.
     attr_reader :blob
 
     # Public: Initialize a Sprite.
     #
-    # source - the source directory where the sprite images are located.
+    # source_dir - the source directory where the sprite images are located.
     # destination - the destination directory where the sprite should be saved.
-    def initialize(source, destination)
-      source_pattern = File.join(source, '*.png')
+    def initialize(source_dir, destination)
+      source_pattern = File.join(source_dir, '*.png')
       sources = Dir[source_pattern].sort
 
-      if sources.none? { |path| File.exist?(path) }
-        raise EmptySourceError, "No image sources found at '#{source}'."
+      if sources.size == 0
+        raise EmptySourceError, "No image sources found at '#{source_dir}'."
       end
 
-      @name = File.basename(source)
-      @path = "#{File.join(destination, name)}.png"
-      @list = Magick::ImageList.new(*sources)
+      @name     = File.basename(source_dir)
+      @filename = "#{name}.png"
+      @path     = File.join(destination, @filename)
+      @list     = Magick::ImageList.new(*sources)
     end
 
     # Public: combines the source images into a single one,

@@ -21,6 +21,13 @@ describe Spriteful::Sprite do
     end
   end
 
+  describe '#filename' do
+    it 'returns the filename of the sprite combined image' do
+      sprite = Spriteful::Sprite.new(source, destination)
+      expect(sprite.filename).to eq('simple.png')
+    end
+  end
+
   describe '#combine!' do
     it 'sets the sprite blob' do
       sprite = Spriteful::Sprite.new(source, destination)
