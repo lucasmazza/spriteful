@@ -21,10 +21,12 @@ module Spriteful
     # sprite - a 'Sprite' object to create the Stylesheet.
     # root   - a root path of where the Stylesheet will be created.
     # format - the format for the CSS code.
-    def initialize(sprite, root, format)
+    def initialize(sprite, root, format, rails = false)
       @sprite = sprite
       @root = Pathname.new(root)
       @format = format
+      @rails = rails
+
       @sprite_position = 0
       @path = @root.join(name)
     end
@@ -37,7 +39,7 @@ module Spriteful
     def render
       @created_at ||= Time.now
       source = File.expand_path("../stylesheets/template.#{format}.erb", __FILE__)
-      ERB.new(File.read(source)).result(binding)
+      ERB.new(File.read(source), nil, '-').result(binding)
     end
 
     # Public: returns this Stylesheet name, based
@@ -45,10 +47,20 @@ module Spriteful
     #
     # Returns a String.
     def name
-      "#{sprite.name}.#{format}"
+      file_format = @rails ? rails_format : format
+      "#{sprite.name}.#{file_format}"
     end
 
     protected
+
+    def rails_format
+      case format
+      when 'css'
+        'css.erb'
+      when 'scss'
+        'scss'
+      end
+    end
 
     # Internal: computes the vertical position of a image from
     # the sprite, accumulating the image heights on every
@@ -74,7 +86,11 @@ module Spriteful
     #
     # Returns a 'String'.
     def image_url(sprite)
-      Pathname.new(sprite.path).relative_path_from(@root)
+      if @rails
+        "sprites/#{sprite.filename}"
+      else
+        Pathname.new(sprite.path).relative_path_from(@root)
+      end
     end
   end
 end

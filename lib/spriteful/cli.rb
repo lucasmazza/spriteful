@@ -25,7 +25,7 @@ module Spriteful
         sprite.combine!
         create_file sprite.path, sprite.blob
         root = options['stylesheets'] || Dir.pwd
-        stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(root), options['format'])
+        stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(root), options['format'], options['rails'])
         if options['stylesheets']
           create_file stylesheet.path, stylesheet.render
         else
@@ -43,7 +43,6 @@ module Spriteful
       if options.rails?
         sources.concat(detect_sources).uniq!
         set_rails_defaults
-        options.delete('rails')
       end
     end
 
