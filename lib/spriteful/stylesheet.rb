@@ -47,13 +47,23 @@ module Spriteful
     #
     # Returns a String.
     def name
-      file_format = @rails ? rails_format : format
-      "#{sprite.name}.#{file_format}"
+      extension = rails? ? rails_extension : format
+      "#{sprite.name}.#{extension}"
     end
 
     protected
 
-    def rails_format
+    # Internal: returns the 'rails ' flag.
+    def rails?
+      @rails
+    end
+
+    # Internal: defines the file extension to be used with
+    # Rails applications, since we need to account for the ERB
+    # preprocessing of plain CSS files.
+    #
+    # Returns a String.
+    def rails_extension
       case format
       when 'css'
         'css.erb'

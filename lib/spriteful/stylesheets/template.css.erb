@@ -9,7 +9,7 @@
  */
 
 .<%= class_name_for(sprite) %> {
-  <% if @rails -%>
+  <% if rails? -%>
   background-image: url(<%%= image_url('<%= image_url(sprite) %>') %>);
   <% else -%>
   background-image: url(<%= image_url(sprite) %>);
