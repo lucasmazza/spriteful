@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Spriteful::Stylesheet do
   let(:source) { File.expand_path('spec/fixtures/simple') }
   let(:destination) { File.expand_path('tmp') }
-  let(:sprite) { sprite = Spriteful::Sprite.new(source, destination) }
+  let(:sprite) { Spriteful::Sprite.new(source, destination) }
 
   describe '#render' do
     it 'renders the CSS for the given sprite' do
