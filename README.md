@@ -45,7 +45,7 @@ spriteful images/icons -f scss
 ```scss
 // in your SCSS code...
 .button {
-  @extend icons-sprite-new;
+  @extend %icons-sprite-new;
 }
 ```
 
