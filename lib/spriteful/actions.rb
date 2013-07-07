@@ -7,7 +7,7 @@ module Spriteful
     def copy(banner, contents)
       # TODO: add support for other Operating Systems.
       IO.popen('/usr/bin/pbcopy', 'w') { |io| io.write(contents) }
-      say_status :copied, banner
+      say_status :copy, banner
     end
   end
 end
