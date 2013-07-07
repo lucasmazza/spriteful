@@ -6,7 +6,7 @@ module Spriteful
     include Thor::Actions
     desc 'Generates image sprites with corresponding stylesheets.'
 
-    argument :sources, type: :array, desc: 'Images to generate the sprites.'
+    argument :sources, type: :array, desc: 'Images to generate the sprites.', default: []
 
     class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.'
     class_option :format, aliases: '-f', banner: 'FORMAT', type: :string, desc: 'Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".', default: 'css'
