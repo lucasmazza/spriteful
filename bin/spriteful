@@ -1,5 +1,16 @@
 #!/usr/bin/env ruby
+require 'shellwords'
+
 require 'spriteful'
 require 'spriteful/cli'
+
+unless ARGV.include?('--help') || ARGV.include?('-h')
+  %w(~/.spritefulrc ./.spritefulrc).each do |rcfile|
+    path = File.expand_path(rcfile)
+    if File.exist?(path)
+      ARGV.unshift(*Shellwords.split(File.read(path)))
+    end
+  end
+end
 
 Spriteful::CLI.start
