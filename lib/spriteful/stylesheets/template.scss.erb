@@ -8,8 +8,6 @@
 //   @extend %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(sprite.images.first) %>;
 //   // Your styles here.
 // }
-//
-// This sprite was created on <%= created_at.strftime('%B %d, %Y at %H:%M') %>.
 
 <% sprite.each_image do |image| %>
 %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {

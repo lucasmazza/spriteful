@@ -10,9 +10,6 @@ module Spriteful
     # Public: returns the 'Sprite' of this Stylesheet.
     attr_reader :sprite
 
-    # Public: returns the 'Time' when the Stylesheet was generated.
-    attr_reader :created_at
-
     # Public: returns the path where the Stylesheet should be stored.
     attr_reader :path
 
@@ -37,7 +34,6 @@ module Spriteful
     #
     # Returns the CSS code as a 'String'.
     def render
-      @created_at ||= Time.now
       source = File.expand_path("../stylesheets/template.#{format}.erb", __FILE__)
       ERB.new(File.read(source), nil, '-').result(binding)
     end
