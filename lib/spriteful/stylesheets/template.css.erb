@@ -12,6 +12,7 @@
   <% else -%>
   background-image: url(<%= image_url(sprite) %>);
   <% end -%>
+  background-repeat: no-repeat;
 }
 <% sprite.each_image do |image| %>
 .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
