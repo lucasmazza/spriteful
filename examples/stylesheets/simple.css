@@ -4,19 +4,18 @@
  * sprite on you HTML code, as in:
  *
  *  <div class='simple blue'>Your markup here.</div>
- *
- * This sprite was created on July 04, 2013 at 22:48.
  */
 
 .simple {
-  background-image: url(../simple.png);
+    background-image: url(../simple.png);
+    background-repeat: no-repeat;
 }
 
 .simple.blue {
-  background-position: 0 0px;
+  background-position: 0px 0px;
 }
 
 .simple.red {
-  background-position: 0 -10px;
+  background-position: 0px -10px;
 }
 

@@ -17,6 +17,6 @@
   background-image: url(<%= image_url(sprite) %>);
   <% end -%>
   background-repeat: no-repeat;
-  background-position: 0 <%= position_for(image) %>px;
+  background-position: <%= image.left %>px <%= image.top %>px;
 }
 <% end %>

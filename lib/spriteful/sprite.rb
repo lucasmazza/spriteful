@@ -5,10 +5,6 @@ module Spriteful
   # of images into a single one, and providing the required information
   # about the related images.
   class Sprite
-    # Internal: Data structure to represent the images found in the 'source'
-    # directory.
-    Image = Struct.new(:name, :path, :width, :height)
-
     # Public: returns the path where the sprite will be saved.
     attr_reader :path
 
@@ -37,6 +33,7 @@ module Spriteful
       @filename = "#{name}.png"
       @path     = File.join(destination, @filename)
       @list     = Magick::ImageList.new(*sources)
+      @images   = initialize_images(@list)
     end
 
     # Public: combines the source images into a single one,
@@ -57,22 +54,31 @@ module Spriteful
     # Returns an 'Enumerator' if no block is given.
     def each_image
       return to_enum(__method__) unless block_given?
-      @list.each do |image|
-        yield create_image(image)
-      end
+      @images.each { |image| yield image }
     end
 
     alias :images :each_image
 
     protected
-    # Internal: wraps a given 'Magick::Image' object into a plain
-    # 'Image' instance, a simple 'Struct' that abstracts the RMagick
-    # API for dealing with image details like height and width.
+    # Internal: Initializes a collection of 'Image' objects
+    # based on the 'source' images. The images will have
+    # the source images metadata and the required 'top' and
+    # 'left' coordinates that the image will be placed
+    # in the sprite.
     #
-    # Returns an 'Image' instance.
-    def create_image(magick_image)
-      name = File.basename(magick_image.filename)
-      Image.new(name, magick_image.filename, magick_image.columns, magick_image.rows)
+    # list - a 'RMagick::ImageList' of sources.
+    # Returns an Array
+    def initialize_images(list)
+      sprite_position = 0
+
+      list.to_a.map do |magick_image|
+        image = Image.new(magick_image)
+
+        image.top = sprite_position
+        sprite_position -= image.height
+
+        image
+      end
     end
   end
 end

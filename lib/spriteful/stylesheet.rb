@@ -24,7 +24,6 @@ module Spriteful
       @format = format
       @rails = rails
 
-      @sprite_position = 0
       @path = @root.join(name)
     end
 
@@ -66,17 +65,6 @@ module Spriteful
       when 'scss'
         'scss'
       end
-    end
-
-    # Internal: computes the vertical position of a image from
-    # the sprite, accumulating the image heights on every
-    # iteration.
-    #
-    # Returns the position as a 'Fixnum'.
-    def position_for(image)
-      current_position = @sprite_position
-      @sprite_position -= image.height
-      current_position
     end
 
     # Internal: sanitizes the 'name' of a given object to

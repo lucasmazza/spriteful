@@ -1,5 +1,6 @@
 require 'thor/error'
 
+require 'spriteful/image'
 require 'spriteful/sprite'
 require 'spriteful/stylesheet'
 
