@@ -19,9 +19,12 @@ module Spriteful
 
     # Public: Initialize a Sprite.
     #
-    # source_dir - the source directory where the sprite images are located.
+    # source_dir  - the source directory where the sprite images are located.
     # destination - the destination directory where the sprite should be saved.
-    def initialize(source_dir, destination)
+    # options     - additional Hash of options.
+    #               :orientation - orientation of the sprite, either ':vertical'
+    #                              or ':horizontal'.
+    def initialize(source_dir, destination, options = {})
       source_pattern = File.join(source_dir, '*.png')
       sources = Dir[source_pattern].sort
 
@@ -29,6 +32,7 @@ module Spriteful
         raise EmptySourceError, "No image sources found at '#{source_dir}'."
       end
 
+      @orientation = options.fetch(:orientation, :vertical)
       @name     = File.basename(source_dir)
       @filename = "#{name}.png"
       @path     = File.join(destination, @filename)
@@ -42,7 +46,8 @@ module Spriteful
     # Returns nothing.
     def combine!
       @list.each { |image| image.background_color = 'none' }
-      combined = @list.append(true)
+      sprite_orientation = @orientation == :vertical
+      combined = @list.append(sprite_orientation)
       @blob = combined.to_blob
     end
 

@@ -5,6 +5,8 @@ describe Spriteful::Sprite do
   let(:source) { File.expand_path('spec/fixtures/simple') }
   let(:destination) { File.expand_path('tmp') }
 
+  before { FileUtils.rm(Dir["#{destination}/*.png"]) }
+
   describe 'initialization' do
     it 'raises an error if the source directory is empty' do
       source = File.expand_path('spec/fixtures/missing')
@@ -33,6 +35,22 @@ describe Spriteful::Sprite do
       sprite = Spriteful::Sprite.new(source, destination)
       sprite.combine!
       expect(sprite.blob).to be
+    end
+
+    it 'combine images vertically by default' do
+      sprite = Spriteful::Sprite.new(source, destination)
+      sprite.combine!
+      image = Magick::Image.from_blob(sprite.blob).first
+      expect(image.columns).to be(10)
+      expect(image.rows).to be(20)
+    end
+
+    it 'can combine images horizontally' do
+      sprite = Spriteful::Sprite.new(source, destination, orientation: :horizontal)
+      sprite.combine!
+      image = Magick::Image.from_blob(sprite.blob).first
+      expect(image.columns).to be(20)
+      expect(image.rows).to be(10)
     end
   end
 
