@@ -90,6 +90,7 @@ spriteful --rails
 * `--destination` (`-d`) - Directory to save the generated image(s).
 * `--rails` (`-r`) - Forces rails specific settings, see [Spriteful and Rails](#spriteful-and-rails) for more info.
 * `--format` (`-f`) - Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".
+* `--horizontal` (`-h`) - Changes the sprite orientation to horizontal, since all sprites are combined vertically by default.
 
 You can add a `.spritefulrc` file with default options to your home directory or the current one that they will be picked up whenever you run the `spriteful` command.
 

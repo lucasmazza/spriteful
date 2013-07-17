@@ -12,16 +12,17 @@ module Spriteful
     class_option :format, aliases: '-f', banner: 'FORMAT', type: :string, desc: 'Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".', default: 'css'
     class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
     class_option :rails, aliases: '-r', type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
+    class_option :horizontal, aliases: '-h', type: :boolean, desc: 'Change the sprite orientation to "horizontal"'
 
     def self.banner
       'spriteful sources [options]'
     end
 
     def execute
+      sprite_options = extract_sprite_options
       prepare_options!
-
       sources.each do |source|
-        sprite = Spriteful::Sprite.new(File.expand_path(source), options['destination'])
+        sprite = Spriteful::Sprite.new(File.expand_path(source), options['destination'], sprite_options)
         sprite.combine!
         create_file sprite.path, sprite.blob
         root = options['stylesheets'] || Dir.pwd
@@ -35,6 +36,13 @@ module Spriteful
     end
 
     private
+    # Internal: Gets the set of options that are specific for the 'Sprite'
+    # class.
+    # Returns a Hash
+    def extract_sprite_options
+      { orientation: (options.horizontal? ? :horizontal : :vertical) }
+    end
+
     # Internal: Change the `options` hash if necessary, based on the
     # 'rails' flag.
     #

@@ -46,8 +46,7 @@ module Spriteful
     # Returns nothing.
     def combine!
       @list.each { |image| image.background_color = 'none' }
-      sprite_orientation = @orientation == :vertical
-      combined = @list.append(sprite_orientation)
+      combined = @list.append(vertical_sprite?)
       @blob = combined.to_blob
     end
 
@@ -65,6 +64,13 @@ module Spriteful
     alias :images :each_image
 
     protected
+    # Internal: Checks if the sprite should be combined vertically.
+    #
+    # Returns true or false.
+    def vertical_sprite?
+      @orientation == :vertical
+    end
+
     # Internal: Initializes a collection of 'Image' objects
     # based on the 'source' images. The images will have
     # the source images metadata and the required 'top' and
@@ -79,9 +85,13 @@ module Spriteful
       list.to_a.map do |magick_image|
         image = Image.new(magick_image)
 
-        image.top = sprite_position
-        sprite_position -= image.height
-
+        if vertical_sprite?
+          image.top = sprite_position
+          sprite_position -= image.height
+        else
+          image.left = sprite_position
+          sprite_position -= image.width
+        end
         image
       end
     end
