@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Spriteful::Image do
-  let(:rmagick_image) { double('RMagick Image', filename: 'path/to/image.png', columns: 10, rows: 5) }
-  subject(:image) { Spriteful::Image.new(rmagick_image) }
+  let(:magick_image) { double('Magick Image', filename: 'path/to/image.png', columns: 10, rows: 5) }
+  subject(:image) { Spriteful::Image.new(magick_image) }
 
   it { expect(image.name).to eq('image.png') }
   it { expect(image.path).to eq('path/to/image.png') }

@@ -21,15 +21,15 @@ module Spriteful
     attr_accessor :left
 
     # Public: Initializes an Image, extracting the image
-    # metadata such as width and path supplied by an 'RMagick::Image'
+    # metadata such as width and path supplied by an 'Magick::Image'
     # object that was initialized from the real image blob.
     #
-    # rmagick_image - an 'RMagick::Image' object.
-    def initialize(rmagick_image)
-      @path   = rmagick_image.filename
+    # magick_image - an 'Magick::Image' object.
+    def initialize(magick_image)
+      @path   = magick_image.filename
       @name   = File.basename(@path)
-      @width  = rmagick_image.columns
-      @height = rmagick_image.rows
+      @width  = magick_image.columns
+      @height = magick_image.rows
 
       @top    = 0
       @left   = 0
