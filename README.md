@@ -9,11 +9,11 @@ Lets say that you have your images in `images/icons/` and you want to generate a
 ```bash
 spriteful images/icons
 # create  icons.png
-# copy    icons.css
+# create  icons.css
 ```
 
-Boom! Spriteful will generate a `icons.png` in your working directory and copy the respective CSS
-for your sprite to your clipboard.
+Boom! Spriteful will generate a `icons.png` in your working directory and the respective CSS
+for your sprite in the `icons.css` file.
 
 If you want a bit more of control on where we should place the combined image and the CSS, you
 can use the `s` (for `stylesheets`) and `d` ( for `destination`) flags and Spriteful will place

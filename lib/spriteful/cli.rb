@@ -1,5 +1,4 @@
 require 'thor/group'
-require 'spriteful/actions'
 
 module Spriteful
   class CLI < ::Thor::Group
@@ -8,7 +7,7 @@ module Spriteful
 
     argument :sources, type: :array, desc: 'Images to generate the sprites.', default: []
 
-    class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.'
+    class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.', default: Dir.pwd
     class_option :format, aliases: '-f', banner: 'FORMAT', type: :string, desc: 'Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".', default: 'css'
     class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
     class_option :rails, aliases: '-r', type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
@@ -25,13 +24,8 @@ module Spriteful
         sprite = Spriteful::Sprite.new(File.expand_path(source), options['destination'], sprite_options)
         sprite.combine!
         create_file sprite.path, sprite.blob
-        root = options['stylesheets'] || Dir.pwd
-        stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(root), options['format'], options['rails'])
-        if options['stylesheets']
-          create_file stylesheet.path, stylesheet.render
-        else
-          copy(stylesheet.name, stylesheet.render)
-        end
+        stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options['stylesheets']), options['format'], options['rails'])
+        create_file stylesheet.path, stylesheet.render
       end
     end
 
