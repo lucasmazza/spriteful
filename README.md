@@ -72,7 +72,7 @@ spriteful images/icons images/flags -s stylesheets -d images
 ### Spriteful and Rails
 
 If you are working on a Ruby on Rails application Spriteful can provide some extra goodies for
-you. If you the `spriteful` command with the `--rails` flag, all sprites under `app/assets/images/sprites` will be generated with respective stylesheets at `app/assets/stylesheets/sprites`, using the proper `image_url` helper for the format of your choice.
+you. If run you the `spriteful` command with the `--rails` flag, all sprites under `app/assets/images/sprites` will be generated with respective stylesheets at `app/assets/stylesheets/sprites`, using the proper `image_url` helper for the format of your choice.
 
 So, given that you have the `icons` and `flags` directories with your images under `app/assets/images`, you might get a similar output when generating these two sprites.
 
