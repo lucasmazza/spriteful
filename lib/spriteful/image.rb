@@ -20,12 +20,16 @@ module Spriteful
     # Public: Gets/sets the left position of the image in a sprite.
     attr_accessor :left
 
+    # Public: Gets the source 'Magick::Image'.
+    attr_reader :source
+
     # Public: Initializes an Image, extracting the image
     # metadata such as width and path supplied by an 'Magick::Image'
     # object that was initialized from the real image blob.
     #
     # magick_image - an 'Magick::Image' object.
     def initialize(magick_image)
+      @source = magick_image
       @path   = magick_image.filename
       @name   = File.basename(@path)
       @width  = magick_image.columns

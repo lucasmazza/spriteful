@@ -92,6 +92,7 @@ spriteful --rails
 * `--format` (`-f`) - Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".
 * `--horizontal` - Changes the sprite orientation to horizontal, since all sprites are combined vertically by default.
 * `--save` - Saves the provided arguments for later use.
+* `--spacing` - Add some spacing between the images in the sprite.
 
 You can add a `.spritefulrc` file with default options to your home directory or the current one that they will be picked up whenever you run the `spriteful` command.
 

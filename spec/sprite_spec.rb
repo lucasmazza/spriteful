@@ -16,6 +16,30 @@ describe Spriteful::Sprite do
     end
   end
 
+  describe '#width' do
+    it 'returns the whole sprite width' do
+      sprite = Spriteful::Sprite.new(source, destination)
+      expect(sprite.width).to be(10)
+    end
+
+    it 'accounts for the padding information' do
+      sprite = Spriteful::Sprite.new(source, destination, spacing: 10, orientation: :horizontal)
+      expect(sprite.width).to be(30)
+    end
+  end
+
+  describe '#height' do
+    it 'returns the whole sprite height' do
+      sprite = Spriteful::Sprite.new(source, destination)
+      expect(sprite.height).to be(20)
+    end
+
+    it 'accounts for the spacing information' do
+      sprite = Spriteful::Sprite.new(source, destination, spacing: 10)
+      expect(sprite.height).to be(30)
+    end
+  end
+
   describe '#path' do
     it 'returns the path where the combined image will be saved' do
       sprite = Spriteful::Sprite.new(source, destination)

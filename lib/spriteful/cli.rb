@@ -14,6 +14,7 @@ module Spriteful
 
     class_option :horizontal, type: :boolean, desc: 'Change the sprite orientation to "horizontal".'
     class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
+    class_option :spacing, type: :numeric, desc: 'Add spacing between the images in the sprite.'
 
     def self.banner
       'spriteful sources [options]'
@@ -41,7 +42,12 @@ module Spriteful
     # class.
     # Returns a Hash
     def extract_sprite_options
-      { orientation: (options.horizontal? ? :horizontal : :vertical) }
+      sprite_options = { }
+      sprite_options[:orientation] = (options.horizontal? ? :horizontal : :vertical)
+      if options.spacing?
+        sprite_options[:spacing] = options.spacing
+      end
+      sprite_options
     end
 
     # Internal: Change the `options` hash if necessary, based on the
