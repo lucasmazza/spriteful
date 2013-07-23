@@ -11,7 +11,8 @@ module Spriteful
     class_option :format, aliases: '-f', banner: 'FORMAT', type: :string, desc: 'Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".', default: 'css'
     class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
     class_option :rails, aliases: '-r', type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
-    class_option :horizontal, aliases: '-h', type: :boolean, desc: 'Change the sprite orientation to "horizontal"'
+
+    class_option :horizontal, type: :boolean, desc: 'Change the sprite orientation to "horizontal".'
 
     def self.banner
       'spriteful sources [options]'
