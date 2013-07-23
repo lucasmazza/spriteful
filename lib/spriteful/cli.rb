@@ -13,6 +13,7 @@ module Spriteful
     class_option :rails, aliases: '-r', type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
 
     class_option :horizontal, type: :boolean, desc: 'Change the sprite orientation to "horizontal".'
+    class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
 
     def self.banner
       'spriteful sources [options]'
@@ -27,6 +28,11 @@ module Spriteful
         create_file sprite.path, sprite.blob
         stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options['stylesheets']), options['format'], options['rails'])
         create_file stylesheet.path, stylesheet.render
+      end
+
+      if options['save']
+        ARGV.delete('--save')
+        create_file '.spritefulrc', ARGV.join(' ')
       end
     end
 
