@@ -85,7 +85,7 @@ module Spriteful
 
     alias :images :each_image
 
-    protected
+    private
     # Internal: detect the expected 'height' and 'width' of the
     # combined image of this sprite. This should take in account
     # the sprite orientation and the configured spacing.
