@@ -26,6 +26,10 @@ module Spriteful
     # Public: returns the height of the combined image.
     attr_reader :height
 
+    # Public: Gets the flag to check if the sprite is vertical or not.
+    attr_reader :vertical
+    alias :vertical? :vertical
+
     # Public: Initialize a Sprite.
     #
     # source_dir  - the source directory where the sprite images are located.
@@ -43,7 +47,7 @@ module Spriteful
         raise EmptySourceError, "No image sources found at '#{source_dir}'."
       end
 
-      @orientation = options.fetch(:orientation, :vertical)
+      @vertical    = !options[:horizontal]
       @spacing     = options.fetch(:spacing, 0)
 
       @name     = File.basename(source_dir)
@@ -90,7 +94,7 @@ module Spriteful
     def detect_dimensions
       total_spacing = (@images.size - 1) * spacing
 
-      if vertical_sprite?
+      if vertical?
         height   = @images.map { |image| image.height }.inject(:+) + total_spacing
         width    = @images.map { |image| image.width }.max
       else
@@ -99,13 +103,6 @@ module Spriteful
       end
 
       [height, width]
-    end
-
-    # Internal: Checks if the sprite should be combined vertically.
-    #
-    # Returns true or false.
-    def vertical_sprite?
-      @orientation == :vertical
     end
 
     # Internal: Initializes a collection of 'Image' objects
@@ -119,12 +116,11 @@ module Spriteful
     def initialize_images(list)
       sprite_position = 0
       images = []
-
       list.to_a.each_with_index do |magick_image, index|
         image = Image.new(magick_image)
-        padding = (index + 1) * spacing
+        padding = index * spacing
 
-        if vertical_sprite?
+        if vertical?
           image.top = sprite_position
           sprite_position -= image.height + padding
         else

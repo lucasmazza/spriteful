@@ -26,29 +26,41 @@ module Spriteful
     end
 
     def execute
-      sprite_options = extract_sprite_options
       prepare_options!
       sources.each do |source|
-        sprite = Spriteful::Sprite.new(File.expand_path(source), options['destination'], sprite_options)
-        sprite.combine!
-        create_file sprite.path, sprite.blob
-        stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options['stylesheets']), options['format'], options['rails'])
-        create_file stylesheet.path, stylesheet.render
+        create_sprite(source)
       end
 
-      if options['save']
+      save_options
+    end
+
+    private
+
+    def create_sprite(source)
+      sprite = Spriteful::Sprite.new(File.expand_path(source), options.destination, sprite_options)
+      stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options.stylesheets), options.format, options.rails?)
+
+      sprite.combine!
+      create_file sprite.path, sprite.blob
+      create_file stylesheet.path, stylesheet.render
+    end
+
+    # Internal: Saves the existing options on 'ARGV' to the '.spritefulrc'
+    # file if the '--save' flag is present.
+    # Returns nothing.
+    def save_options
+      if options.save?
         ARGV.delete('--save')
         create_file '.spritefulrc', ARGV.join(' ')
       end
     end
 
-    private
     # Internal: Gets the set of options that are specific for the 'Sprite'
     # class.
     # Returns a Hash
-    def extract_sprite_options
+    def sprite_options
       sprite_options = { }
-      sprite_options[:orientation] = (options.horizontal? ? :horizontal : :vertical)
+      sprite_options[:horizontal] = options.horizontal?
       if options.spacing?
         sprite_options[:spacing] = options.spacing
       end

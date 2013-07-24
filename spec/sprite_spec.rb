@@ -23,7 +23,7 @@ describe Spriteful::Sprite do
     end
 
     it 'accounts for the padding information' do
-      sprite = Spriteful::Sprite.new(source, destination, spacing: 10, orientation: :horizontal)
+      sprite = Spriteful::Sprite.new(source, destination, spacing: 10, horizontal: true)
       expect(sprite.width).to be(30)
     end
   end
@@ -70,7 +70,7 @@ describe Spriteful::Sprite do
     end
 
     it 'can combine images horizontally' do
-      sprite = Spriteful::Sprite.new(source, destination, orientation: :horizontal)
+      sprite = Spriteful::Sprite.new(source, destination, horizontal: true)
       sprite.combine!
       image = Magick::Image.from_blob(sprite.blob).first
       expect(image.columns).to be(20)
