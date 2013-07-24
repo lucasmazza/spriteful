@@ -20,6 +20,11 @@ module Spriteful
       'spriteful sources [options]'
     end
 
+    def initialize(*)
+      super
+      self.options = options.dup
+    end
+
     def execute
       sprite_options = extract_sprite_options
       prepare_options!
@@ -69,13 +74,10 @@ module Spriteful
       Dir['app/assets/images/sprites/*'].select { |dir| File.directory?(dir) }
     end
 
-    # Internal: Sets Rails specific default options to the 'options' Hash,
-    # that is converted back to a plain Hash (instead of a 'HashWithIndifferentAccess')
+    # Internal: Sets Rails specific default options to the 'options' object.
     #
     # Returns nothing.
     def set_rails_defaults
-      self.options = options.to_hash
-
       options['stylesheets'] = File.expand_path('app/assets/stylesheets/sprites')
       options['destination'] = File.expand_path('app/assets/images/sprites')
     end
