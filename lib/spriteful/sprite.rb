@@ -8,22 +8,22 @@ module Spriteful
     # Public: returns the path where the sprite will be saved.
     attr_reader :path
 
-    # Public: returns name of the sprite.
+    # Public: Gets the name of the sprite.
     attr_reader :name
 
-    # Public: returns filename of the sprite.
+    # Public: Gets the filename of the sprite.
     attr_reader :filename
 
-    # Public: returns the spacing between the images in the sprite.
+    # Public: Gets the the spacing between the images in the sprite.
     attr_reader :spacing
 
-    # Public: returns the binary contents of the combined image.
+    # Public: Gets the the binary contents of the combined image.
     attr_reader :blob
 
-    # Public: returns the width of the combined image.
+    # Public: Gets the the width of the combined image.
     attr_reader :width
 
-    # Public: returns the height of the combined image.
+    # Public: Gets the the height of the combined image.
     attr_reader :height
 
     # Public: Gets the flag to check if the sprite is vertical or not.
@@ -35,8 +35,8 @@ module Spriteful
     # source_dir  - the source directory where the sprite images are located.
     # destination - the destination directory where the sprite should be saved.
     # options     - additional Hash of options.
-    #               :orientation - orientation of the sprite, either ':vertical'
-    #                              or ':horizontal'.
+    #               :horizontal - flag to turn the sprite into the horizontal
+    #                             orientation.
     #               :spacing - spacing in pixels that should be placed between
     #                          the images in the sprite. Defaults to 0.
     def initialize(source_dir, destination, options = {})
