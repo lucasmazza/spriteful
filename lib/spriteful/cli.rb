@@ -1,7 +1,7 @@
 require 'thor/group'
 
 module Spriteful
-  class CLI < ::Thor::Group
+  class CLI < Thor::Group
     include Thor::Actions
     desc 'Generates image sprites with corresponding stylesheets.'
 
@@ -16,17 +16,30 @@ module Spriteful
     class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
     class_option :spacing, type: :numeric, desc: 'Add spacing between the images in the sprite.'
 
+    # Public: Gets the CLI banner for the Thor help message.
+    #
+    # Returns a String.
     def self.banner
       'spriteful sources [options]'
     end
 
+    # Public: Initializes the CLI object and replaces the frozen
+    # 'options' object with an unfrozen one that we can mutate.
     def initialize(*)
       super
       self.options = options.dup
     end
 
+    # Public: executes the CLI processing of the sprite sources
+    # into combined images and stylesheets.
+    # Returns nothing.
     def execute
       prepare_options!
+      if sources.empty?
+        self.class.help(shell)
+        exit(1)
+      end
+
       sources.each do |source|
         create_sprite(source)
       end
@@ -35,7 +48,9 @@ module Spriteful
     end
 
     private
-
+    # Internal: create a sprite image and stylesheet from a given source.
+    #
+    # Returns nothing.
     def create_sprite(source)
       sprite = Spriteful::Sprite.new(File.expand_path(source), options.destination, sprite_options)
       stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options.stylesheets), options.format, options.rails?)
@@ -47,6 +62,7 @@ module Spriteful
 
     # Internal: Saves the existing options on 'ARGV' to the '.spritefulrc'
     # file if the '--save' flag is present.
+    #
     # Returns nothing.
     def save_options
       if options.save?
@@ -57,7 +73,8 @@ module Spriteful
 
     # Internal: Gets the set of options that are specific for the 'Sprite'
     # class.
-    # Returns a Hash
+    #
+    # Returns a Hash.
     def sprite_options
       sprite_options = { }
       sprite_options[:horizontal] = options.horizontal?
