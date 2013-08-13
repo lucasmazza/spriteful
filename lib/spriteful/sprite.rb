@@ -52,7 +52,7 @@ module Spriteful
 
       @name     = File.basename(source_dir)
       @filename = "#{name}.png"
-      @path     = File.join(destination, @filename)
+      @path     = File.expand_path(File.join(destination, @filename))
       @list     = Magick::ImageList.new(*sources)
       @images   = initialize_images(@list)
 

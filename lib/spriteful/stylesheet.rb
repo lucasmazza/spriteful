@@ -1,3 +1,4 @@
+require 'pathname'
 require 'erb'
 
 module Spriteful
