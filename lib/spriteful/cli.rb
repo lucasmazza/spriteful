@@ -1,3 +1,4 @@
+require 'shellwords'
 require 'thor/group'
 
 module Spriteful
@@ -40,6 +41,7 @@ module Spriteful
         exit(1)
       end
 
+      sources.uniq!
       sources.each do |source|
         create_sprite(source)
       end
@@ -66,8 +68,9 @@ module Spriteful
     # Returns nothing.
     def save_options
       if options.save?
-        ARGV.delete('--save')
-        create_file '.spritefulrc', ARGV.join(' ')
+        options.delete(:save)
+        parts = sources + options.map { |key, value| ["--#{key}", value.to_s] }.flatten
+        create_file '.spritefulrc', Shellwords.join(parts) + "\n", force: true
       end
     end
 
@@ -90,7 +93,7 @@ module Spriteful
     # Returns nothing.
     def prepare_options!
       if options.rails?
-        sources.concat(detect_sources).uniq!
+        sources.concat(detect_sources)
         set_rails_defaults
       end
     end
