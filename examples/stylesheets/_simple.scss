@@ -5,20 +5,20 @@
 // to use the 'simple' sprite on your SCSS code, as in:
 //
 // .my-thing {
-//   @extend simple-sprite-blue;
+//   @extend %simple-sprite-blue;
 //   // Your styles here.
 // }
-//
-// This sprite was created on July 04, 2013 at 22:48.
 
 
 %simple-sprite-blue {
   background-image: url(../simple.png);
-  background-position: 0 0px;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
 }
 
 %simple-sprite-red {
   background-image: url(../simple.png);
-  background-position: 0 -10px;
+  background-repeat: no-repeat;
+  background-position: 0px -10px;
 }
 
