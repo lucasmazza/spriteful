@@ -11,11 +11,11 @@
 
 <% sprite.each_image do |image| %>
 %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
-  <% if rails? -%>
+  <%- if rails? -%>
   background-image: image-url('<%= image_url(sprite) %>');
-  <% else -%>
+  <%- else -%>
   background-image: url(<%= image_url(sprite) %>);
-  <% end -%>
+  <%- end -%>
   background-repeat: no-repeat;
   background-position: <%= image.left %>px <%= image.top %>px;
 }
