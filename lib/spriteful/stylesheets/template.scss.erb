@@ -8,7 +8,6 @@
 //   @extend %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(sprite.images.first) %>;
 //   // Your styles here.
 // }
-
 <% sprite.each_image do |image| %>
 %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
   <%- if rails? -%>
