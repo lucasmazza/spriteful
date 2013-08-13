@@ -49,7 +49,7 @@ module Spriteful
     # Returns a String.
     def name
       extension = rails? ? rails_extension : format
-      "#{sprite.name}.#{extension}"
+      "#{sprite_name}.#{extension}"
     end
 
     protected
@@ -70,6 +70,15 @@ module Spriteful
         'css.erb'
       when 'scss'
         'scss'
+      end
+    end
+
+    def sprite_name
+      case format
+      when 'css'
+        sprite.name
+      when 'scss'
+        "_#{sprite.name}"
       end
     end
 
