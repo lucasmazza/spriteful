@@ -16,16 +16,21 @@ module Spriteful
 
     # Public: Initialize a Stylesheet
     #
-    # sprite - a 'Sprite' object to create the Stylesheet.
-    # root   - a root path of where the Stylesheet will be created.
-    # format - the format for the CSS code.
-    def initialize(sprite, root, format, rails = false)
+    # sprite        - a 'Sprite' object to create the Stylesheet.
+    # destination   - the directory where the Stylesheet will be created.
+    # options       - additional Hash of options.
+    #                 :format - the Stylesheet format.
+    #                 :rails  - A flag to generate Asset Pipeline compatible Stylesheets.
+    def initialize(sprite, destination, options = {})
       @sprite = sprite
-      @root = Pathname.new(root)
-      @format = format
-      @rails = rails
+      @destination = Pathname.new(destination)
+      if options[:root]
+        @root = Pathname.new(File.expand_path(options[:root]))
+      end
+      @format = options[:format]
+      @rails = options.fetch(:rails) { false }
 
-      @path = @root.join(name)
+      @path = @destination.join(name)
     end
 
     # Public: renders the CSS code for this Stylesheet.
@@ -81,10 +86,13 @@ module Spriteful
     #
     # Returns a 'String'.
     def image_url(sprite)
+      path = Pathname.new(sprite.path)
       if @rails
         "sprites/#{sprite.filename}"
+      elsif @root
+        "/#{path.relative_path_from(@root)}"
       else
-        Pathname.new(sprite.path).relative_path_from(@root)
+        path.relative_path_from(@destination)
       end
     end
   end

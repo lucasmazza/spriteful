@@ -7,7 +7,7 @@ describe Spriteful::Stylesheet do
 
   describe '#render' do
     it 'renders the CSS for the given sprite' do
-      stylesheet = Spriteful::Stylesheet.new(sprite, destination, 'css')
+      stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'css')
       output = stylesheet.render
 
       expect(output).to match(/.simple \{/)
@@ -16,7 +16,7 @@ describe Spriteful::Stylesheet do
     end
     it 'renders the SCSS format' do
       sprite = Spriteful::Sprite.new(source, destination)
-      stylesheet = Spriteful::Stylesheet.new(sprite, destination, 'scss')
+      stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss')
       output = stylesheet.render
 
       expect(output).to match(/%simple-sprite-blue \{/)

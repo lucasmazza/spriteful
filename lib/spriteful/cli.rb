@@ -8,11 +8,12 @@ module Spriteful
 
     argument :sources, type: :array, desc: 'Images to generate the sprites.', default: []
 
-    class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.', default: Dir.pwd
     class_option :format, aliases: '-f', banner: 'FORMAT', type: :string, desc: 'Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".', default: 'css'
+    class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.', default: Dir.pwd
     class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
-    class_option :rails, aliases: '-r', type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
+    class_option :root, aliases: '-r', banner: 'ROOT_DIR', type: :string, desc: 'Root folder from where your static files will be served.'
 
+    class_option :rails, type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
     class_option :horizontal, type: :boolean, desc: 'Change the sprite orientation to "horizontal".'
     class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
     class_option :spacing, type: :numeric, desc: 'Add spacing between the images in the sprite.'
@@ -55,7 +56,7 @@ module Spriteful
     # Returns nothing.
     def create_sprite(source)
       sprite = Spriteful::Sprite.new(File.expand_path(source), options.destination, sprite_options)
-      stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options.stylesheets), options.format, options.rails?)
+      stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options.stylesheets), stylesheet_options)
 
       sprite.combine!
       create_file sprite.path, sprite.blob
@@ -74,17 +75,23 @@ module Spriteful
       end
     end
 
+    def stylesheet_options
+      {
+        root: options.root,
+        format: options.format,
+        rails: options.rails?
+      }
+    end
+
     # Internal: Gets the set of options that are specific for the 'Sprite'
     # class.
     #
     # Returns a Hash.
     def sprite_options
-      sprite_options = { }
-      sprite_options[:horizontal] = options.horizontal?
-      if options.spacing?
-        sprite_options[:spacing] = options.spacing
-      end
-      sprite_options
+      {
+        horizontal: options.horizontal?,
+        spacing: options.spacing
+      }
     end
 
     # Internal: Change the `options` hash if necessary, based on the

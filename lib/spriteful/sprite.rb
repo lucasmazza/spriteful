@@ -48,7 +48,7 @@ module Spriteful
       end
 
       @vertical    = !options[:horizontal]
-      @spacing     = options.fetch(:spacing, 0)
+      @spacing     = options[:spacing] || 0
 
       @name     = File.basename(source_dir)
       @filename = "#{name}.png"
