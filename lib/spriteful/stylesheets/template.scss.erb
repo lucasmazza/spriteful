@@ -8,14 +8,18 @@
 //   @extend %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(sprite.images.first) %>;
 //   // Your styles here.
 // }
-<% sprite.each_image do |image| %>
-%<%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
+
+%<%= class_name_for(sprite) %>-sprite {
   <%- if rails? -%>
   background-image: image-url('<%= image_url(sprite) %>');
   <%- else -%>
   background-image: url(<%= image_url(sprite) %>);
   <%- end -%>
   background-repeat: no-repeat;
+}
+<% sprite.each_image do |image| %>
+%<%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
+  @extend %<%= class_name_for(sprite) %>-sprite;
   background-position: <%= image.left %>px <%= image.top %>px;
 }
 <% end %>
