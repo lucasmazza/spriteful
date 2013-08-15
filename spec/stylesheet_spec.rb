@@ -14,11 +14,13 @@ describe Spriteful::Stylesheet do
       expect(output).to match(/.simple.blue \{/)
       expect(output).to match(/.simple.red \{/)
     end
+
     it 'renders the SCSS format' do
       sprite = Spriteful::Sprite.new(source, destination)
       stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss')
       output = stylesheet.render
 
+      expect(output).to match(/%simple-sprite \{/)
       expect(output).to match(/%simple-sprite-blue \{/)
       expect(output).to match(/%simple-sprite-red \{/)
     end
