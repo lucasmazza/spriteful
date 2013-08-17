@@ -64,17 +64,17 @@ describe Spriteful::Sprite do
     it 'combine images vertically by default' do
       sprite = Spriteful::Sprite.new(source, destination)
       sprite.combine!
-      image = Magick::Image.from_blob(sprite.blob).first
-      expect(image.columns).to be(10)
-      expect(image.rows).to be(20)
+      image = ChunkyPNG::Image.from_blob(sprite.blob)
+      expect(image.width).to be(10)
+      expect(image.height).to be(20)
     end
 
     it 'can combine images horizontally' do
       sprite = Spriteful::Sprite.new(source, destination, horizontal: true)
       sprite.combine!
-      image = Magick::Image.from_blob(sprite.blob).first
-      expect(image.columns).to be(20)
-      expect(image.rows).to be(10)
+      image = ChunkyPNG::Image.from_blob(sprite.blob)
+      expect(image.width).to be(20)
+      expect(image.height).to be(10)
     end
   end
 
