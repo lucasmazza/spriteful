@@ -24,6 +24,7 @@ module Spriteful
     def initialize(sprite, destination, options = {})
       @sprite = sprite
       @destination = Pathname.new(destination)
+      @root = nil
       if options[:root]
         @root = Pathname.new(File.expand_path(options[:root]))
       end
