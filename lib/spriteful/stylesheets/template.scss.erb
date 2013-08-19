@@ -21,5 +21,10 @@
 %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
   @extend %<%= class_name_for(sprite) %>-sprite;
   background-position: <%= image.left %>px <%= image.top %>px;
+  <%- if image.svg? %>
+  .svg & {
+    // TODO: inline SVG goes here.
+  }
+  <%- end -%>
 }
 <% end %>

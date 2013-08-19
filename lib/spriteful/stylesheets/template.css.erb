@@ -18,4 +18,9 @@
 .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
   background-position: <%= image.left %>px <%= image.top %>px;
 }
+<% if image.svg? %>
+.svg .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
+  /* TODO: inline SVG goes here. */
+}
+<% end -%>
 <% end %>

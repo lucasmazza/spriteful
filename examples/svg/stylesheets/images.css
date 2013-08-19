@@ -19,6 +19,10 @@
   background-position: 0px -10px;
 }
 
+.svg .images.green {
+  /* TODO: inline SVG goes here. */
+}
+
 .images.red {
   background-position: 0px -20px;
 }
