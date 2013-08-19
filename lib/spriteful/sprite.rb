@@ -1,4 +1,4 @@
-require 'chunky_png'
+require 'RMagick'
 
 module Spriteful
   # Public: the 'Sprite' class is responsible for combining a directory
@@ -53,8 +53,8 @@ module Spriteful
       @name     = File.basename(source_dir)
       @filename = "#{name}.png"
       @path     = File.expand_path(File.join(destination, @filename))
-      sources     = sources.map { |source| [source, ChunkyPNG::Image.from_file(source)] }
-      @images   = initialize_images(Hash[sources])
+      @list     = Magick::ImageList.new(*sources)
+      @images   = initialize_images(@list)
 
       @height, @width = detect_dimensions
     end
@@ -64,11 +64,12 @@ module Spriteful
     #
     # Returns nothing.
     def combine!
-      combined = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color::TRANSPARENT)
+      combined = Magick::Image.new(width, height)
+      combined.opacity = Magick::MaxRGB
       @images.each do |image|
-        combined.compose!(image.source, image.left.abs, image.top.abs)
+        combined.composite!(image.source, image.left.abs, image.top.abs, Magick::SrcOverCompositeOp)
       end
-      @blob = combined.to_blob(:best_compression)
+      @blob = combined.to_blob { self.format = 'png' }
     end
 
     # Public: exposes the source images found in the 'source'
@@ -110,14 +111,13 @@ module Spriteful
     # 'left' coordinates that the image will be placed
     # in the sprite.
     #
-    # sources - a Hash of source paths and image objects.
-    #
-    # Returns an Array.
-    def initialize_images(sources)
+    # list - a 'RMagick::ImageList' of sources.
+    # Returns an Array
+    def initialize_images(list)
       sprite_position = 0
       images = []
-      sources.each_with_index do |(path, chunky_image), index|
-        image = Image.new(chunky_image, path)
+      list.to_a.each_with_index do |magick_image, index|
+        image = Image.new(magick_image)
         padding = index * spacing
 
         if vertical?
