@@ -68,7 +68,7 @@ module Spriteful
       @images.each do |image|
         combined.compose!(image.source, image.left.abs, image.top.abs)
       end
-      @blob = combined.to_blob
+      @blob = combined.to_blob(:best_compression)
     end
 
     # Public: exposes the source images found in the 'source'
