@@ -30,6 +30,8 @@ module Spriteful
     attr_reader :vertical
     alias :vertical? :vertical
 
+    attr_reader :svgs
+
     # Public: Initialize a Sprite.
     #
     # source_dir  - the source directory where the sprite images are located.
@@ -40,7 +42,7 @@ module Spriteful
     #               :spacing - spacing in pixels that should be placed between
     #                          the images in the sprite. Defaults to 0.
     def initialize(source_dir, destination, options = {})
-      source_pattern = File.join(source_dir, '*.png')
+      source_pattern = File.join(source_dir, '*{.png,.svg}')
       sources = Dir[source_pattern].sort
 
       if sources.size == 0
@@ -55,6 +57,7 @@ module Spriteful
       @path     = File.expand_path(File.join(destination, @filename))
       @list     = Magick::ImageList.new(*sources)
       @images   = initialize_images(@list)
+      @svgs     = @images.select(&:svg?)
 
       @height, @width = detect_dimensions
     end

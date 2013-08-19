@@ -9,4 +9,5 @@ describe Spriteful::Image do
   it { expect(image.width).to eq(10) }
   it { expect(image.height).to eq(5) }
   it { expect(image.source).to eq(magick_image) }
+  it { expect(image).to_not be_svg }
 end

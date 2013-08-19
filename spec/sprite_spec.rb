@@ -92,4 +92,13 @@ describe Spriteful::Sprite do
       expect(red.left).to eq(0)
     end
   end
+
+  describe 'svg support' do
+    let(:source) { File.expand_path('spec/fixtures/svg') }
+
+    it 'identifies svg images inside the sprite' do
+      sprite = Spriteful::Sprite.new(source, destination)
+      expect(sprite).to have(1).svgs
+    end
+  end
 end

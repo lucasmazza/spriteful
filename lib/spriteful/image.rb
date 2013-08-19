@@ -38,5 +38,9 @@ module Spriteful
       @top    = 0
       @left   = 0
     end
+
+    def svg?
+      File.extname(@path) == '.svg'
+    end
   end
 end
