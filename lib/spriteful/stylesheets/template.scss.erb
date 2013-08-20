@@ -23,7 +23,8 @@
   background-position: <%= image.left %>px <%= image.top %>px;
   <%- if image.svg? %>
   .svg & {
-    // TODO: inline SVG goes here.
+    background-image: url(<%= data_uri(image) %>);
+    background-position: 0 0;
   }
   <%- end -%>
 }

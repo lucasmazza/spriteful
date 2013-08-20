@@ -39,6 +39,16 @@ module Spriteful
       @left   = 0
     end
 
+    # Public: Gets the source image contents.
+    # Returns a String.
+    def blob
+      @blob ||= File.read(path)
+    end
+
+    # Public: detects if the source is a SVG image
+    # based on its path.
+    #
+    # Returns true or false.
     def svg?
       File.extname(@path) == '.svg'
     end

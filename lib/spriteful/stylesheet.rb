@@ -1,5 +1,5 @@
-require 'pathname'
 require 'erb'
+require 'pathname'
 
 module Spriteful
   # Public: class responsible for putting together the CSS code
@@ -103,6 +103,16 @@ module Spriteful
         "/#{path.relative_path_from(@root)}"
       else
         path.relative_path_from(@destination)
+      end
+    end
+
+    # Internal: Gets an embeddable Data URI of the image if it
+    # is a SVG image.
+    #
+    # Returns a String.
+    def data_uri(image)
+      if image.svg?
+        %['data:image/svg+xml;utf8,#{image.blob.gsub(/\r?\n/, "")}']
       end
     end
   end
