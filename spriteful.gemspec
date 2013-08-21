@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |spec|
   spec.name          = 'spriteful'
-  spec.version       = '0.0.1.dev'
+  spec.version       = '0.0.1'
   spec.authors       = ['Lucas Mazza']
   spec.email         = ['lucastmazza@gmail.com']
   spec.description   = 'A sprite generation tool'
