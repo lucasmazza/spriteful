@@ -91,5 +91,13 @@ describe Spriteful::Sprite do
       expect(red.top).to eq(-10)
       expect(red.left).to eq(0)
     end
+
+    it 'accounts the spacing option when setting the "top" attribute of each image' do
+      sprite = Spriteful::Sprite.new(source, destination, spacing: 10)
+      blue, red = sprite.images.to_a
+
+      expect(blue.top).to eq(0)
+      expect(red.top).to eq(-20)
+    end
   end
 end

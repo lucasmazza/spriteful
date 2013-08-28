@@ -118,14 +118,13 @@ module Spriteful
       images = []
       sources.each_with_index do |(path, chunky_image), index|
         image = Image.new(chunky_image, path)
-        padding = index * spacing
 
         if vertical?
           image.top = sprite_position
-          sprite_position -= image.height + padding
+          sprite_position -= image.height + spacing
         else
           image.left = sprite_position
-          sprite_position -= image.width + padding
+          sprite_position -= image.width + spacing
         end
         images << image
       end
