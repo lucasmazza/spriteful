@@ -55,6 +55,15 @@ spriteful images/icons -f scss
 }
 ```
 
+You can also choose to genete the code using
+[Mixin Directives](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#mixins).
+
+```bash
+spriteful images/icons -f scss --mixin
+# create  icons.png
+# copy    icons.scss
+```
+
 ### Multiple sprites
 
 You can deal with multiple sprites in a single run. If `images/icons` has a set of images for one
@@ -100,6 +109,7 @@ you need to add a new source to an existing sprite.
 * `--destination` (`-d`) - Directory to save the generated image(s).
 * `--rails` (`-r`) - Forces rails specific settings, see [Spriteful and Rails](#spriteful-and-rails) for more info.
 * `--format` (`-f`) - Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".
+* `--mixin`- Choose to use the Mixin Directives instead of Placeholder Selector.
 * `--horizontal` - Changes the sprite orientation to horizontal, since all sprites are combined vertically by default.
 * `--save` - Saves the provided arguments for later use.
 * `--spacing` - Add some spacing between the images in the sprite.
