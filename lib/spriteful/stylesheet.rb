@@ -29,7 +29,7 @@ module Spriteful
         @root = Pathname.new(File.expand_path(options[:root]))
       end
       @format = options[:format]
-      @rails = options.fetch(:rails) { false }
+      @rails = options.fetch(:rails, false)
 
       @path = @destination.join(name)
     end
