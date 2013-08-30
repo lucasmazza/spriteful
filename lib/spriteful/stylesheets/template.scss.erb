@@ -9,7 +9,7 @@
 //   // Your styles here.
 // }
 
-%<%= class_name_for(sprite) %>-sprite {
+<%= mixin? ? '@mixin ' : '%' %><%= class_name_for(sprite) %>-sprite {
   <%- if rails? -%>
   background-image: image-url('<%= image_url(sprite) %>');
   <%- else -%>
@@ -19,7 +19,7 @@
 }
 <% sprite.each_image do |image| %>
 %<%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
-  @extend %<%= class_name_for(sprite) %>-sprite;
+  <%= extension_strategy %><%= class_name_for(sprite) %>-sprite;
   background-position: <%= image.left %>px <%= image.top %>px;
 }
 <% end %>

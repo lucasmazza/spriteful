@@ -20,6 +20,7 @@ module Spriteful
     # destination   - the directory where the Stylesheet will be created.
     # options       - additional Hash of options.
     #                 :format - the Stylesheet format.
+    #                 :mixin  - Use mixins instead of Placeholder selector in the SCSS format.
     #                 :rails  - A flag to generate Asset Pipeline compatible Stylesheets.
     def initialize(sprite, destination, options = {})
       @sprite = sprite
@@ -29,6 +30,7 @@ module Spriteful
         @root = Pathname.new(File.expand_path(options[:root]))
       end
       @format = options[:format]
+      @mixin = options.fetch(:mixin, false)
       @rails = options.fetch(:rails, false)
 
       @path = @destination.join(name)
@@ -58,6 +60,16 @@ module Spriteful
     # Internal: returns the 'rails ' flag.
     def rails?
       @rails
+    end
+
+    # Internal: returns the 'mixin ' flag.
+    def mixin?
+      @mixin
+    end
+
+    # Internal: select the extension strategy for the SCSS selector.
+    def extension_strategy
+      mixin? ? '@include ' : '@extend %'
     end
 
     # Internal: defines the file extension to be used with

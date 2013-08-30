@@ -24,5 +24,16 @@ describe Spriteful::Stylesheet do
       expect(output).to match(/%simple-sprite-blue \{/)
       expect(output).to match(/%simple-sprite-red \{/)
     end
+
+    it 'renders the SCSS format using mixin' do
+      sprite = Spriteful::Sprite.new(source, destination)
+      stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss', mixin: true)
+      output = stylesheet.render
+
+      expect(output).to match(/@mixin simple-sprite \{/)
+      expect(output).to match(/%simple-sprite-blue \{/)
+      expect(output).to match(/@include simple-sprite;/)
+      expect(output).to match(/%simple-sprite-red \{/)
+    end
   end
 end
