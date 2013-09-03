@@ -13,6 +13,7 @@ module Spriteful
     class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
     class_option :root, aliases: '-r', banner: 'ROOT_DIR', type: :string, desc: 'Root folder from where your static files will be served.'
 
+    class_option :mixin, type: :boolean, desc: 'Choose to use the Mixin Directives instead of Placeholder Selectors.'
     class_option :rails, type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
     class_option :horizontal, type: :boolean, desc: 'Change the sprite orientation to "horizontal".'
     class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
@@ -79,7 +80,8 @@ module Spriteful
       {
         root: options.root,
         format: options.format,
-        rails: options.rails?
+        rails: options.rails?,
+        mixin: options.mixin?
       }
     end
 
