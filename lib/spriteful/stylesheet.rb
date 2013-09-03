@@ -57,12 +57,12 @@ module Spriteful
 
     protected
 
-    # Internal: returns the 'rails ' flag.
+    # Internal: returns the 'rails' flag.
     def rails?
       @rails
     end
 
-    # Internal: returns the 'mixin ' flag.
+    # Internal: returns the 'mixin' flag.
     def mixin?
       @mixin
     end
