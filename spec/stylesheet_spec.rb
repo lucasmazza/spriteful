@@ -31,9 +31,9 @@ describe Spriteful::Stylesheet do
       output = stylesheet.render
 
       expect(output).to match(/@mixin simple-sprite \{/)
-      expect(output).to match(/%simple-sprite-blue \{/)
+      expect(output).to match(/@mixin simple-sprite-blue \{/)
       expect(output).to match(/@include simple-sprite;/)
-      expect(output).to match(/%simple-sprite-red \{/)
+      expect(output).to match(/@mixin simple-sprite-red \{/)
     end
   end
 end
