@@ -9,7 +9,7 @@
 //   // Your styles here.
 // }
 
-<%= mixin? ? '@mixin ' : '%' %><%= class_name_for(sprite) %>-sprite {
+<%= extension_prefix %><%= class_name_for(sprite) %>-sprite {
   <%- if rails? -%>
   background-image: image-url('<%= image_url(sprite) %>');
   <%- else -%>

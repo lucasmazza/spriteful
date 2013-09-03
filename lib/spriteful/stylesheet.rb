@@ -67,6 +67,11 @@ module Spriteful
       @mixin
     end
 
+    # Internal: select the extension prefix for the SCSS selector.
+    def extension_prefix
+      mixin? ? '@mixin ' : '%'
+    end
+
     # Internal: select the extension strategy for the SCSS selector.
     def extension_strategy
       mixin? ? '@include ' : '@extend %'
