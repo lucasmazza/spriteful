@@ -64,6 +64,13 @@ spriteful images/icons -f scss --mixin
 # copy    icons.scss
 ```
 
+```scss
+// in your SCSS code...
+.button {
+  @include icons-sprite-new;
+}
+```
+
 ### Multiple sprites
 
 You can deal with multiple sprites in a single run. If `images/icons` has a set of images for one
