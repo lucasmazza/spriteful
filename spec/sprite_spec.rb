@@ -91,6 +91,28 @@ describe Spriteful::Sprite do
       expect(red.top).to eq(-10)
       expect(red.left).to eq(0)
     end
+
+    it 'accounts the spacing option when setting the "left" attribute of each image on a horizontal sprite' do
+      sprite = Spriteful::Sprite.new(source, destination, spacing: 10, horizontal: true)
+      blue, red = sprite.images.to_a
+
+      expect(blue.top).to eq(0)
+      expect(blue.left).to eq(0)
+
+      expect(red.top).to eq(0)
+      expect(red.left).to eq(-20)
+    end
+
+    it 'accounts the spacing option when setting the "top" attribute of each image' do
+      sprite = Spriteful::Sprite.new(source, destination, spacing: 10)
+      blue, red = sprite.images.to_a
+
+      expect(blue.top).to eq(0)
+      expect(blue.left).to eq(0)
+
+      expect(red.top).to eq(-20)
+      expect(red.left).to eq(0)
+    end
   end
 
   describe 'svg support' do

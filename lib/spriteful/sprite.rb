@@ -119,16 +119,17 @@ module Spriteful
     def initialize_images(list)
       sprite_position = 0
       images = []
+
       list.to_a.each_with_index do |magick_image, index|
         image = Image.new(magick_image)
         padding = index * spacing
 
         if vertical?
           image.top = sprite_position
-          sprite_position -= image.height + padding
+          sprite_position -= image.height + spacing
         else
           image.left = sprite_position
-          sprite_position -= image.width + padding
+          sprite_position -= image.width + spacing
         end
         images << image
       end
