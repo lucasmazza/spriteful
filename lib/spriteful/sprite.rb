@@ -122,7 +122,6 @@ module Spriteful
 
       list.to_a.each_with_index do |magick_image, index|
         image = Image.new(magick_image)
-        padding = index * spacing
 
         if vertical?
           image.top = sprite_position
