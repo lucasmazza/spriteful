@@ -19,7 +19,8 @@ describe Spriteful::Image do
     it { expect(image).to be_svg }
 
     it 'returns the SVG XML as the #blob' do
-      expect(image.blob).to eq(File.read(source_image.filename))
+      xml = SvgOptimizer.optimize(File.read(source_image.filename))
+      expect(image.blob).to eq(xml)
     end
   end
 end

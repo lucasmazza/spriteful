@@ -1,3 +1,5 @@
+require 'svg_optimizer'
+
 module Spriteful
   # Internal: Data structure to represent the images that are part
   # of a sprite.
@@ -40,9 +42,10 @@ module Spriteful
     end
 
     # Public: Gets the source image contents.
+    #
     # Returns a String.
     def blob
-      @blob ||= File.read(path)
+      @blob ||= SvgOptimizer.optimize(File.read(path))
     end
 
     # Public: detects if the source is a SVG image
