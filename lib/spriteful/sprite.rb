@@ -30,8 +30,6 @@ module Spriteful
     attr_reader :vertical
     alias :vertical? :vertical
 
-    attr_reader :svgs
-
     # Public: Initialize a Sprite.
     #
     # source_dir  - the source directory where the sprite images are located.
@@ -57,7 +55,6 @@ module Spriteful
       @path     = File.expand_path(File.join(destination, @filename))
       @list     = Magick::ImageList.new(*sources)
       @images   = initialize_images(@list)
-      @svgs     = @images.select(&:svg?)
 
       @height, @width = detect_dimensions
     end
