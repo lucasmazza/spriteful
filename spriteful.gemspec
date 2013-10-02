@@ -1,7 +1,9 @@
 # coding: utf-8
+require File.expand_path('../lib/spriteful/version', __FILE__)
+
 Gem::Specification.new do |spec|
   spec.name          = 'spriteful'
-  spec.version       = '0.0.3'
+  spec.version       = Spriteful::VERSION
   spec.authors       = ['Lucas Mazza']
   spec.email         = ['lucastmazza@gmail.com']
   spec.description   = 'A sprite generation tool'
