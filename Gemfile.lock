@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    spriteful (0.0.3)
+    spriteful (0.0.4)
       rmagick (~> 2.13.2)
       svg_optimizer
       thor (>= 0.18.1, < 2.0)
