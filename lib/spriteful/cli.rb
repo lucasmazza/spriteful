@@ -19,6 +19,7 @@ module Spriteful
     class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
     class_option :spacing, type: :numeric, desc: 'Add spacing between the images in the sprite.'
 
+    class_option :version, type: :boolean, aliases: '-v'
     # Public: Gets the CLI banner for the Thor help message.
     #
     # Returns a String.
@@ -37,6 +38,11 @@ module Spriteful
     # into combined images and stylesheets.
     # Returns nothing.
     def execute
+      if options.version?
+        say "Spriteful #{Spriteful::VERSION}"
+        exit(0)
+      end
+
       prepare_options!
       if sources.empty?
         self.class.help(shell)
