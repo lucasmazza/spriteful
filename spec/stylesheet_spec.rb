@@ -35,5 +35,14 @@ describe Spriteful::Stylesheet do
       expect(output).to match(/@include simple-sprite;/)
       expect(output).to match(/@mixin simple-sprite-red \{/)
     end
+
+    it 'documents the Spriteful options used to generate the stylesheet' do
+      Spriteful.options = %w(one two three)
+      sprite = Spriteful::Sprite.new(source, destination)
+      stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'css')
+      output = stylesheet.render
+
+      expect(output).to match(/'spriteful one two three'/)
+    end
   end
 end
