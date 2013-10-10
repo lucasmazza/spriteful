@@ -6,4 +6,8 @@ RSpec.configure do |config|
   config.filter_run :focus
 
   config.order = 'random'
+
+  config.after do
+    Spriteful.options = nil
+  end
 end
