@@ -21,4 +21,10 @@
 .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
   background-position: <%= image.left %>px <%= image.top %>px;
 }
+<% if image.svg? %>
+.svg .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
+  background-image: url(<%= data_uri(image) %>);
+  background-position: 0 0;
+}
+<% end -%>
 <% end %>

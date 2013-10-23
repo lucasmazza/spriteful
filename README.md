@@ -121,6 +121,29 @@ images under `icons` will generate the `icons.png` and `icons.css` files. This c
 enforces previsibility over generated files and helps when regenating existing sprites whenever
 you need to add a new source to an existing sprite.
 
+## SVG Support
+
+Spriteful has a basic support for dealing with SVG images (and not only PNGs). SVG images
+will be combined along the rest of your images and will be embedded directly on the final
+Stylesheet in the data URI format. Using the `svg` root class (based on Modernizr), the
+data URI will be used for browsers that support SVG images and the composed PNG will work
+as a fallback for legacy browsers.
+
+```css
+.images.update-icon {
+  background-position: 0px -10px;
+}
+
+.svg .images.update-icon {
+  background-image: url('data:image/svg+xml;utf8, SVG XML goes here :)');
+  background-position: 0 0;
+}
+
+```
+
+Future versions of Spriteful could have support for generating composed images as SVG files
+(and not only PNG), so feel free to send a contribution improving the feature.
+
 ## Available options
 
 * `--stylesheets` (`-s`) - Directory to save the generated stylesheet(s), instead of copying them to the clipboard.

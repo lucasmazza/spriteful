@@ -52,5 +52,24 @@ describe Spriteful::Stylesheet do
 
       expect(output).to match(/'spriteful one two three'/)
     end
+
+    describe 'SVG support' do
+      let(:source) { File.expand_path('spec/fixtures/svg') }
+
+      it 'exposes an alternative class for browsers that support SVG' do
+        stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'css')
+        output = stylesheet.render
+
+        expect(output).to match(/^.svg.green \{/)
+        expect(output).to match(/^.svg .svg.green \{/)
+      end
+
+      it 'extends the placeholder selectors for browsers that support SVG' do
+        stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss')
+        output = stylesheet.render
+
+        expect(output).to match(/^  .svg & \{/)
+      end
+    end
   end
 end

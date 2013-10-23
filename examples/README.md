@@ -9,4 +9,7 @@ this directory was:
 bundle exec spriteful simple -s stylesheets/
 # And to generate the SCSS version
 bundle exec spriteful simple -s stylesheets/ -f scss
+# Generating the sprite with SVG images
+bundle exec spriteful svg/images -s svg/stylesheets/ -d svg/ -f scss
+bundle exec spriteful svg/images -s svg/stylesheets/ -d svg/
 ```
