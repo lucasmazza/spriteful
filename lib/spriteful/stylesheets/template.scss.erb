@@ -16,6 +16,9 @@
 //   <%= extension_strategy %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(sprite.images.first) %>;
 //   // Your styles here.
 // }
+//
+// There also will be available a variable named '$<%= class_name_for(sprite) %>-sprite-names'
+// with all the images inside the sprite.
 
 <%= extension_prefix %><%= class_name_for(sprite) %>-sprite {
   <%- if rails? -%>
@@ -31,3 +34,5 @@
   background-position: <%= image.left %>px <%= image.top %>px;
 }
 <% end %>
+
+$<%= class_name_for(sprite) %>-sprite-names: <%= sprite.images.map { |i| class_name_for(i) }.join(' ') %>;

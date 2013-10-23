@@ -9,6 +9,9 @@
 //   @extend %simple-sprite-blue;
 //   // Your styles here.
 // }
+//
+// There also will be available a variable named '$simple-sprite-names'
+// with all the images inside this sprite.
 
 %simple-sprite {
   background-image: url(../simple.png);
@@ -25,3 +28,5 @@
   background-position: 0px -10px;
 }
 
+
+$simple-sprite-names: blue red;
