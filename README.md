@@ -55,7 +55,7 @@ spriteful images/icons -f scss
 }
 ```
 
-You can also choose to genete the code using
+You can also choose to generate the code using
 [Mixin Directives](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#mixins).
 
 ```bash
@@ -68,6 +68,17 @@ spriteful images/icons -f scss --mixin
 // in your SCSS code...
 .button {
   @include icons-sprite-new;
+}
+```
+
+When using SCSS, the generated stylesheet will have a variable with a list of all images
+inside the generated sprite, so you can hack own your own on top of that.
+
+```scss
+@each $image in $icons-sprite-names {
+  .my-class-for-#{$image} {
+    @extend %icons-sprite-#{$image};
+  }
 }
 ```
 
