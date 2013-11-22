@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spriteful (0.1.0)
+    spriteful (0.1.1)
       rmagick (~> 2.13.2)
       svg_optimizer
       thor (>= 0.18.1, < 2.0)
@@ -10,7 +10,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.4)
-    mini_portile (0.5.1)
+    mini_portile (0.5.2)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     rake (10.1.0)
