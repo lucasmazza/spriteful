@@ -13,7 +13,7 @@ describe Spriteful::Image do
 
   context 'SVG images' do
     before do
-      source_image.stub(filename: 'spec/fixtures/svg/green.svg')
+      allow(source_image).to receive(:filename) { 'spec/fixtures/svg/green.svg' }
     end
 
     it { expect(image).to be_svg }
