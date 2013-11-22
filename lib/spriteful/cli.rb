@@ -44,7 +44,8 @@ module Spriteful
       end
 
       prepare_options!
-      Spriteful.options = ARGV.dup
+      Spriteful.options = ARGV.dup.uniq
+
       if sources.empty?
         self.class.help(shell)
         exit(1)
