@@ -125,16 +125,17 @@ you need to add a new source to an existing sprite.
 
 Spriteful has a basic support for dealing with SVG images (and not only PNGs). SVG images
 will be combined along the rest of your images and will be embedded directly on the final
-Stylesheet in the data URI format. Using the `svg` root class (based on Modernizr), the
+Stylesheet in the data URI format. Using the `imgassvg` root class (based on Modernizr), the
 data URI will be used for browsers that support SVG images and the composed PNG will work
-as a fallback for legacy browsers.
+as a fallback for legacy browsers. By default ImageMagick does quite a bad job of rasterizing
+SVG for best results install librsvg.
 
 ```css
-.images.update-icon {
+.no-imgassvg .images.update-icon {
   background-position: 0px -10px;
 }
 
-.svg .images.update-icon {
+.imgassvg .images.update-icon {
   background-image: url('data:image/svg+xml;utf8, SVG XML goes here :)');
   background-position: 0 0;
 }
