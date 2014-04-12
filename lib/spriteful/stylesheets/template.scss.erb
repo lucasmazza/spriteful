@@ -31,12 +31,16 @@
 <% sprite.each_image do |image| %>
 <%= extension_prefix %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
   <%= extension_strategy %><%= class_name_for(sprite) %>-sprite;
-  background-position: <%= image.left %>px <%= image.top %>px;
   <%- if image.svg? %>
-  .svg & {
+  .svgasimg & {
     background-image: url(<%= data_uri(image) %>);
     background-position: 0 0;
   }
+  .no-svgasimg & {
+    background-position: <%= image.left %>px <%= image.top %>px;
+  }
+  <% else -%>
+  background-position: <%= image.left %>px <%= image.top %>px;
   <%- end -%>
 }
 <% end %>

@@ -60,15 +60,16 @@ describe Spriteful::Stylesheet do
         stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'css')
         output = stylesheet.render
 
-        expect(output).to match(/^.svg.green \{/)
-        expect(output).to match(/^.svg .svg.green \{/)
+        expect(output).to match(/^.no-svgasimg .svg.green \{/)
+        expect(output).to match(/^.svgasimg .svg.green \{/)
       end
 
       it 'extends the placeholder selectors for browsers that support SVG' do
         stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss')
         output = stylesheet.render
 
-        expect(output).to match(/^  .svg & \{/)
+        expect(output).to match(/^  .svgasimg & \{/)
+        expect(output).to match(/^  .no-svgasimg & \{/)
       end
     end
   end

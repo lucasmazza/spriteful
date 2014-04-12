@@ -11,20 +11,23 @@
 
 .<%= class_name_for(sprite) %> {
   <% if rails? -%>
-  background-image: url(<%%= image_url('<%= image_url(sprite) %>') %>);
+  background-image: url(<%%= asset_path('<%= image_url(sprite) %>') %>);
   <% else -%>
   background-image: url(<%= image_url(sprite) %>);
   <% end -%>
   background-repeat: no-repeat;
 }
 <% sprite.each_image do |image| %>
-.<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
+<% if image.svg? %>
+.no-svgasimg .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
   background-position: <%= image.left %>px <%= image.top %>px;
 }
-<% if image.svg? %>
-.svg .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
+.svgasimg .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
   background-image: url(<%= data_uri(image) %>);
-  background-position: 0 0;
+}
+<% else -%>
+.<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
+  background-position: <%= image.left %>px <%= image.top %>px;
 }
 <% end -%>
 <% end %>
