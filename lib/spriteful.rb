@@ -10,5 +10,9 @@ module Spriteful
 
   class << self
     attr_accessor :options
+
+    def optimize_svg?
+      !options || !options.include?("--no-optimize-svg")
+    end
   end
 end
