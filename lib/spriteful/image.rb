@@ -32,7 +32,7 @@ module Spriteful
     # magick_image - an 'Magick::Image' object.
     def initialize(magick_image)
       @source = magick_image
-      @path   = magick_image.filename
+      @path   = magick_image.base_filename
       @name   = File.basename(@path)
       @width  = magick_image.columns
       @height = magick_image.rows
