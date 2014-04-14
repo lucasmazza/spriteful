@@ -1,5 +1,6 @@
 require 'erb'
 require 'pathname'
+require "base64"
 
 module Spriteful
   # Public: class responsible for putting together the CSS code
@@ -129,7 +130,7 @@ module Spriteful
     # Returns a String.
     def data_uri(image)
       if image.svg?
-        %['data:image/svg+xml;utf8,#{image.blob.gsub(/\r?\n/, "")}']
+        %['data:image/svg+xml;base64,#{Base64.encode64(image.blob).gsub(/\r?\n/, "")}']
       end
     end
   end
