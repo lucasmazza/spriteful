@@ -20,7 +20,7 @@ module Spriteful
     class_option :spacing, type: :numeric, desc: 'Add spacing between the images in the sprite.'
 
     class_option :version, type: :boolean, aliases: '-v'
-    class_option :optimize_svg, type: :boolean, default: true, desc: 'Optimize SVG source before generating css'
+    class_option :optimize, type: :boolean, default: true, desc: 'Optimize SVG source before generating CSS'
     # Public: Gets the CLI banner for the Thor help message.
     #
     # Returns a String.
@@ -101,7 +101,8 @@ module Spriteful
     def sprite_options
       {
         horizontal: options.horizontal?,
-        spacing: options.spacing
+        spacing: options.spacing,
+        optimize: options.optimize,
       }
     end
 

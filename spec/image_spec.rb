@@ -3,7 +3,8 @@ require 'spec_helper'
 describe Spriteful::Image do
   let(:filename) { 'path/to/image.png' }
   let(:source_image) { double('Magick Image', base_filename: filename, columns: 10, rows: 5) }
-  subject(:image) { Spriteful::Image.new(source_image) }
+  let(:optimize) { true }
+  subject(:image) { Spriteful::Image.new(source_image, optimize) }
 
   it { expect(image.name).to eq('image.png') }
   it { expect(image.path).to eq('path/to/image.png') }
@@ -23,9 +24,7 @@ describe Spriteful::Image do
     end
 
     context "skiping svg optimize" do
-      before do
-        Spriteful.options = ["--no-optimize-svg"]
-      end
+      let(:optimize) { false }
 
       it 'returns the unoptimized SVG XML as the #blob' do
         xml = File.read(source_image.base_filename)

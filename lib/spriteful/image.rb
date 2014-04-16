@@ -30,12 +30,13 @@ module Spriteful
     # object that was initialized from the real image blob.
     #
     # magick_image - an 'Magick::Image' object.
-    def initialize(magick_image)
+    def initialize(magick_image, optimize=true)
       @source = magick_image
       @path   = magick_image.base_filename
       @name   = File.basename(@path)
       @width  = magick_image.columns
       @height = magick_image.rows
+      @optimize = optimize
 
       @top    = 0
       @left   = 0
@@ -45,7 +46,7 @@ module Spriteful
     #
     # Returns a String.
     def blob
-      @blob ||= if Spriteful.optimize_svg?
+      @blob ||= if @optimize
                   SvgOptimizer.optimize(source_image_contents)
                 else
                   source_image_contents
