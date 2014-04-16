@@ -127,7 +127,8 @@ Spriteful has a basic support for dealing with SVG images (and not only PNGs). S
 will be combined along the rest of your images and will be embedded directly on the final
 Stylesheet in the data URI format. Using the `svg` root class (based on Modernizr), the
 data URI will be used for browsers that support SVG images and the composed PNG will work
-as a fallback for legacy browsers.
+as a fallback for legacy browsers. 
+We recommend that you install librsvg to improve ImageMagick support for SVG images.
 
 ```css
 .images.update-icon {
@@ -154,6 +155,7 @@ Future versions of Spriteful could have support for generating composed images a
 * `--horizontal` - Changes the sprite orientation to horizontal, since all sprites are combined vertically by default.
 * `--save` - Saves the provided arguments for later use.
 * `--spacing` - Add some spacing between the images in the sprite.
+* `--no-optimize` - Skip optimizing SVG images.
 
 You can add a `.spritefulrc` file with default options to your home directory or the current one that they will
 be picked up whenever you run the `spriteful` command.

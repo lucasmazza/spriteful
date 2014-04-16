@@ -39,6 +39,7 @@ module Spriteful
     #                             orientation.
     #               :spacing - spacing in pixels that should be placed between
     #                          the images in the sprite. Defaults to 0.
+    #               :optimize - flag to optimize SVG to be inlined
     def initialize(source_dir, destination, options = {})
       source_pattern = File.join(source_dir, '*{.png,.svg}')
       sources = Dir[source_pattern].sort
@@ -49,11 +50,12 @@ module Spriteful
 
       @vertical    = !options[:horizontal]
       @spacing     = options[:spacing] || 0
+      @optimize    = options[:optimize]
 
       @name     = File.basename(source_dir)
       @filename = "#{name}.png"
       @path     = File.expand_path(File.join(destination, @filename))
-      @list     = Magick::ImageList.new(*sources)
+      @list     = Magick::ImageList.new(*sources) { self.background_color = "none" }
       @images   = initialize_images(@list)
 
       @height, @width = detect_dimensions
@@ -118,7 +120,7 @@ module Spriteful
       images = []
 
       list.to_a.each_with_index do |magick_image, index|
-        image = Image.new(magick_image)
+        image = Image.new(magick_image, @optimize)
 
         if vertical?
           image.top = sprite_position
