@@ -127,8 +127,8 @@ Spriteful has a basic support for dealing with SVG images (and not only PNGs). S
 will be combined along the rest of your images and will be embedded directly on the final
 Stylesheet in the data URI format. Using the `imgassvg` root class (based on Modernizr), the
 data URI will be used for browsers that support SVG images and the composed PNG will work
-as a fallback for legacy browsers. By default ImageMagick does quite a bad job of rasterizing
-SVG for best results install librsvg.
+as a fallback for legacy browsers. 
+We recommend that you install librsvg to improve ImageMagick support for SVG images
 
 ```css
 .no-imgassvg .images.update-icon {
