@@ -23,7 +23,7 @@ describe Spriteful::Image do
       expect(image.blob).to eq(xml)
     end
 
-    context "skiping svg optimize" do
+    context 'skiping svg optimize' do
       let(:optimize) { false }
 
       it 'returns the unoptimized SVG XML as the #blob' do

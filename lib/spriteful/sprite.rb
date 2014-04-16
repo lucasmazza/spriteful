@@ -55,7 +55,7 @@ module Spriteful
       @name     = File.basename(source_dir)
       @filename = "#{name}.png"
       @path     = File.expand_path(File.join(destination, @filename))
-      @list     = Magick::ImageList.new(*sources) { self.background_color = "none" }
+      @list     = Magick::ImageList.new(*sources) { self.background_color = 'none' }
       @images   = initialize_images(@list)
 
       @height, @width = detect_dimensions

@@ -46,11 +46,7 @@ module Spriteful
     #
     # Returns a String.
     def blob
-      @blob ||= if @optimize
-                  SvgOptimizer.optimize(source_image_contents)
-                else
-                  source_image_contents
-                end
+      @blob ||= read_blob
     end
 
     # Public: detects if the source is a SVG image
@@ -63,8 +59,13 @@ module Spriteful
 
     private
 
-    def source_image_contents
-      File.read(path)
+    def read_blob
+      contents = File.read(path)
+      if @optimize
+        SvgOptimizer.optimize(contents)
+      else
+        contents
+      end
     end
   end
 end
