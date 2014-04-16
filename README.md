@@ -155,6 +155,7 @@ Future versions of Spriteful could have support for generating composed images a
 * `--horizontal` - Changes the sprite orientation to horizontal, since all sprites are combined vertically by default.
 * `--save` - Saves the provided arguments for later use.
 * `--spacing` - Add some spacing between the images in the sprite.
+* `--no-optimize` - Skip optimizing SVG images.
 
 You can add a `.spritefulrc` file with default options to your home directory or the current one that they will
 be picked up whenever you run the `spriteful` command.
