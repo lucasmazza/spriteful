@@ -2,6 +2,7 @@ require 'thor/error'
 
 require 'spriteful/version'
 require 'spriteful/image'
+require 'spriteful/optimizer'
 require 'spriteful/sprite'
 require 'spriteful/stylesheet'
 

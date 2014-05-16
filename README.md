@@ -96,6 +96,12 @@ spriteful images/icons images/flags -s stylesheets -d images
 # create  stylesheets/flags.css
 ```
 
+### PNG Optimization
+
+Spriteful supports PNG optimization through the [image_optim](https://github.com/toy/image_optim)
+gem. You should have one of the following utilities present on your system: `pngcrush`, `pngout`,
+`optipng` or `advpng`. If none can be found, the optimization will be skipped.
+
 ### Spriteful and Rails
 
 If you are working on a Ruby on Rails application Spriteful can provide some extra goodies for
@@ -127,7 +133,7 @@ Spriteful has a basic support for dealing with SVG images (and not only PNGs). S
 will be combined along the rest of your images and will be embedded directly on the final
 Stylesheet in the data URI format. Using the `svg` root class (based on Modernizr), the
 data URI will be used for browsers that support SVG images and the composed PNG will work
-as a fallback for legacy browsers. 
+as a fallback for legacy browsers.
 We recommend that you install librsvg to improve ImageMagick support for SVG images.
 
 ```css
