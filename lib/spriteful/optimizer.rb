@@ -45,7 +45,10 @@ module Spriteful
     #
     # Returns true or false.
     def command_exists?(command)
-      `command -v #{command}` && $?.success?
+      ENV['PATH'].split(File::PATH_SEPARATOR).any? do |root|
+        path = File.join(root, command)
+        File.executable?(path) && File.file?(path)
+      end
     end
   end
 end
