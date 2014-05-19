@@ -26,6 +26,11 @@ module Spriteful
       optimization_options.values.any?
     end
 
+    # Public: Gets a list of supported optimizers.
+    def optimizers
+      %w(pngcrush pngout optipng advpng)
+    end
+
     private
     # Internal: Maps which optimizers (or 'workers') that
     # are missing from the system and should be ignored by
@@ -33,12 +38,9 @@ module Spriteful
     #
     # Returns a Hash.
     def optimization_options
-      @options ||= {
-        pngcrush: command_exists?(:pngcrush),
-        pngout: command_exists?(:pngout),
-        optipng: command_exists?(:optipng),
-        advpng: command_exists?(:advpng)
-      }
+      @options ||= optimizers.each_with_object({}) do |key, hash|
+        hash[key.to_sym] = command_exists?(key)
+      end
     end
 
     # Internal: Checks if a command exists.

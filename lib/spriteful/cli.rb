@@ -77,9 +77,13 @@ module Spriteful
       sprite.combine!
       create_file sprite.path, sprite.blob
       create_file stylesheet.path, stylesheet.render
-      if options.optimize? && optimizer.enabled?
-        say_status :optimizing, sprite.path
-        optimizer.optimize!(sprite.path)
+      if options.optimize?
+        if optimizer.enabled?
+          say_status :optimizing, relative_to_original_destination_root(sprite.path)
+          optimizer.optimize!(sprite.path)
+        else
+          say_status :optimizing, "No optimizer found. Please install at least one of the following: #{optimizer.optimizers.join(', ')}.", :yellow
+        end
       end
     end
 
