@@ -20,7 +20,8 @@ module Spriteful
     class_option :spacing, type: :numeric, desc: 'Add spacing between the images in the sprite.'
 
     class_option :version, type: :boolean, aliases: '-v'
-    class_option :optimize, type: :boolean, default: true, desc: 'Optimize SVG source before generating CSS.'
+    class_option :optimize, type: :boolean, default: true, desc: 'Optimizes the combined PNG and inline SVG images.'
+
     # Public: Gets the CLI banner for the Thor help message.
     #
     # Returns a String.
@@ -61,6 +62,11 @@ module Spriteful
     end
 
     private
+    # Internal: Gets an instance of `Spriteful::Optimizer`.
+    def optimizer
+      @optimizer ||= Optimizer.new
+    end
+
     # Internal: create a sprite image and stylesheet from a given source.
     #
     # Returns nothing.
@@ -71,6 +77,14 @@ module Spriteful
       sprite.combine!
       create_file sprite.path, sprite.blob
       create_file stylesheet.path, stylesheet.render
+      if options.optimize?
+        if optimizer.enabled?
+          say_status :optimizing, relative_to_original_destination_root(sprite.path)
+          optimizer.optimize!(sprite.path)
+        else
+          say_status :optimizing, "No optimizer found. Please install at least one of the following: #{optimizer.optimizers.join(', ')}.", :yellow
+        end
+      end
     end
 
     # Internal: Saves the existing options on 'ARGV' to the '.spritefulrc'
