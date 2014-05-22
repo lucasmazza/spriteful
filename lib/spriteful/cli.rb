@@ -101,12 +101,14 @@ module Spriteful
     end
 
     def stylesheet_options
+      template = File.expand_path(options.template) if File.file?(options.template)
+
       {
         root: options.root,
         format: options.format,
         rails: options.rails?,
         mixin: options.mixin?,
-        template: options.template? ? File.expand_path(options.template) : nil
+        template: template
       }
     end
 
