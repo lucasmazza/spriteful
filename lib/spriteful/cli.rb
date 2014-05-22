@@ -18,6 +18,7 @@ module Spriteful
     class_option :horizontal, type: :boolean, desc: 'Change the sprite orientation to "horizontal".'
     class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
     class_option :spacing, type: :numeric, desc: 'Add spacing between the images in the sprite.'
+    class_option :dimensions, type: :boolean, desc: 'Include additional Placeholder Selectors/Mixins with the image\'s dimensions.'
 
     class_option :version, type: :boolean, aliases: '-v'
     class_option :optimize, type: :boolean, default: true, desc: 'Optimizes the combined PNG and inline SVG images.'
@@ -104,7 +105,8 @@ module Spriteful
         root: options.root,
         format: options.format,
         rails: options.rails?,
-        mixin: options.mixin?
+        mixin: options.mixin?,
+        dimensions: options.dimensions?
       }
     end
 

@@ -33,6 +33,7 @@ module Spriteful
       @format = options[:format]
       @mixin = options.fetch(:mixin, false)
       @rails = options.fetch(:rails, false)
+      @dimensions = options.fetch(:dimensions, false)
 
       @path = @destination.join(name)
     end
@@ -66,6 +67,11 @@ module Spriteful
     # Internal: returns the 'mixin' flag.
     def mixin?
       @mixin
+    end
+
+    # Internal: returns the 'dimensions' flag.
+    def dimensions?
+      @dimensions
     end
 
     # Internal: select the extension prefix for the SCSS selector.
