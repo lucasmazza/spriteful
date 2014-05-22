@@ -106,7 +106,7 @@ module Spriteful
         format: options.format,
         rails: options.rails?,
         mixin: options.mixin?,
-        template: options.template
+        template: options.template? ? File.expand_path(options.template) : nil
       }
     end
 

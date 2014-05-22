@@ -36,7 +36,7 @@ module Spriteful
       @format = options[:format]
       @mixin = options.fetch(:mixin, false)
       @rails = options.fetch(:rails, false)
-      @template = options[:template] || "../stylesheets/template.#{@format}.erb"
+      @template = options[:template] || File.expand_path("../stylesheets/template.#{@format}.erb", __FILE__)
 
       @path = @destination.join(name)
     end
@@ -47,8 +47,7 @@ module Spriteful
     #
     # Returns the CSS code as a 'String'.
     def render
-      source = File.expand_path(template, __FILE__)
-      ERB.new(File.read(source), nil, '-').result(binding)
+      ERB.new(File.read(template), nil, '-').result(binding)
     end
 
     # Public: returns this Stylesheet name, based
