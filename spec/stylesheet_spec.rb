@@ -4,6 +4,7 @@ describe Spriteful::Stylesheet do
   let(:source) { File.expand_path('spec/fixtures/simple') }
   let(:destination) { File.expand_path('tmp') }
   let(:sprite) { Spriteful::Sprite.new(source, destination) }
+  let(:template) { File.expand_path('spec/fixtures/template.erb') }
 
   describe '#render' do
     it 'renders the CSS for the given sprite' do
@@ -69,6 +70,18 @@ describe Spriteful::Stylesheet do
         output = stylesheet.render
 
         expect(output).to match(/^  .svg & \{/)
+      end
+    end
+
+    describe 'Custom templates' do
+      it 'renders the CSS using a custom template' do
+        stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss', template: template)
+        output = stylesheet.render
+
+        expect(output).to match('This is a custom template.')
+        expect(output).to match(/.my-custom-template-simple \{/)
+        expect(output).to match(/.my-custom-template-simple.blue \{/)
+        expect(output).to match(/.my-custom-template-simple.red \{/)
       end
     end
   end
