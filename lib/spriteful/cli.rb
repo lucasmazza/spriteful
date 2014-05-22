@@ -47,7 +47,6 @@ module Spriteful
       end
 
       prepare_options!
-      Spriteful.options = ARGV.dup.uniq
 
       if sources.empty?
         self.class.help(shell)
@@ -93,10 +92,9 @@ module Spriteful
     #
     # Returns nothing.
     def save_options
-      if options.save?
-        options.delete(:save)
-        parts = sources + options.map { |key, value| ["--#{key}", value.to_s] }.flatten
-        create_file '.spritefulrc', Shellwords.join(parts) + "\n", force: true
+      if save_options?
+        parts = Shellwords.join(Spriteful.options)
+        create_file '.spritefulrc', parts + "\n", force: true
       end
     end
 
@@ -124,11 +122,15 @@ module Spriteful
       }
     end
 
-    # Internal: Change the `options` hash if necessary, based on the
-    # 'rails' flag.
+    # Internal: Changes the `options` hash if necessary (based on the
+    # '--rails' flag) and store the original 'ARGV' array for further
+    # usage.
     #
     # Returns nothing.
     def prepare_options!
+      Spriteful.options = ARGV.dup.uniq
+      @save_options = !!Spriteful.options.delete('--save')
+
       if options.rails?
         sources.concat(detect_sources)
         set_rails_defaults
@@ -149,6 +151,14 @@ module Spriteful
     def set_rails_defaults
       options['stylesheets'] = File.expand_path('app/assets/stylesheets/sprites')
       options['destination'] = File.expand_path('app/assets/images/sprites')
+    end
+
+    # Internal: Checks if we should save the supplied user arguments into
+    # the rcfile.
+    #
+    # Returns true or false.
+    def save_options?
+      @save_options
     end
   end
 end
