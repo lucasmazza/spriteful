@@ -101,7 +101,7 @@ module Spriteful
     end
 
     def stylesheet_options
-      template = File.expand_path(options.template) if File.file?(options.template)
+      template = File.expand_path(options.template) if File.file?(options.template.to_s)
 
       {
         root: options.root,
