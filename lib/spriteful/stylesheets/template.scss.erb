@@ -16,6 +16,21 @@
 //   <%= extension_strategy %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(sprite.images.first) %>;
 //   // Your styles here.
 // }
+<%- if dimensions? -%>
+//
+// You can also include an image's dimensions anywhere:
+//
+// .my-thing-wrapper {
+//   <%= extension_strategy %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(sprite.images.first) %>-dimensions;
+// }
+//
+// or include the dimensions with the sprite itself:
+//
+// .my-thing {
+//   <%= extension_strategy %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(sprite.images.first) %>-dimensioned;
+//   // Your styles here.
+// }
+<%- end -%>
 //
 // There also will be available a variable named '$<%= class_name_for(sprite) %>-sprite-names'
 // with all the images inside this sprite.
@@ -39,6 +54,16 @@
   }
   <%- end -%>
 }
+<%- if dimensions? -%>
+<%= extension_prefix %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %>-dimensions {
+  width: <%= image.width %>px;
+  height: <%= image.height %>px;
+}
+<%= extension_prefix %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %>-dimensioned {
+  <%= extension_strategy %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %>;
+  <%= extension_strategy %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %>-dimensions;
+}
+<%- end -%>
 <% end %>
 
 $<%= class_name_for(sprite) %>-sprite-names: <%= sprite.images.map { |i| class_name_for(i) }.join(' ') %>;

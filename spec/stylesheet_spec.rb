@@ -71,5 +71,47 @@ describe Spriteful::Stylesheet do
         expect(output).to match(/^  .svg & \{/)
       end
     end
+
+    describe 'dimensions' do
+      it 'renders the placeholder selectors with dimensions' do
+        sprite = Spriteful::Sprite.new(source, destination)
+        stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss', dimensions: true)
+        output = stylesheet.render
+
+        expect(output).to match(/%simple-sprite-blue-dimensions \{/)
+        expect(output).to match(/%simple-sprite-red-dimensions \{/)
+      end
+
+      it 'renders the mixins with dimensions' do
+        sprite = Spriteful::Sprite.new(source, destination)
+        stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss', mixin: true, dimensions: true)
+        output = stylesheet.render
+
+        expect(output).to match(/@mixin simple-sprite-blue-dimensions \{/)
+        expect(output).to match(/@mixin simple-sprite-red-dimensions \{/)
+      end
+
+      it 'renders the placeholder selectors with dimensioned sprites' do
+        sprite = Spriteful::Sprite.new(source, destination)
+        stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss', dimensions: true)
+        output = stylesheet.render
+
+        expect(output).to match(/%simple-sprite-blue-dimensioned \{/)
+        expect(output).to match(/%simple-sprite-red-dimensioned \{/)
+        expect(output).to match(/@extend %simple-sprite-blue-dimensions;/)
+        expect(output).to match(/@extend %simple-sprite-red-dimensions;/)
+      end
+
+      it 'renders the mixins with dimensioned sprites' do
+        sprite = Spriteful::Sprite.new(source, destination)
+        stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss', mixin: true, dimensions: true)
+        output = stylesheet.render
+
+        expect(output).to match(/@mixin simple-sprite-blue-dimensioned \{/)
+        expect(output).to match(/@mixin simple-sprite-red-dimensioned \{/)
+        expect(output).to match(/@include simple-sprite-blue-dimensions;/)
+        expect(output).to match(/@include simple-sprite-red-dimensions;/)
+      end
+    end
   end
 end
