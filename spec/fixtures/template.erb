@@ -1,0 +1,23 @@
+/*
+ * This is a custom template.
+ */
+
+.my-custom-template-<%= class_name_for(sprite) %> {
+  <% if rails? -%>
+  background-image: url(<%%= image_url('<%= image_url(sprite) %>') %>);
+  <% else -%>
+  background-image: url(<%= image_url(sprite) %>);
+  <% end -%>
+  background-repeat: no-repeat;
+}
+<% sprite.each_image do |image| %>
+.my-custom-template-<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
+  background-position: <%= image.left %>px <%= image.top %>px;
+}
+<% if image.svg? %>
+.svg .my-custom-template-<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
+  background-image: url(<%= data_uri(image) %>);
+  background-position: 0 0;
+}
+<% end -%>
+<% end %>

@@ -12,6 +12,7 @@ module Spriteful
     class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.', default: Dir.pwd
     class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
     class_option :root, aliases: '-r', banner: 'ROOT_DIR', type: :string, desc: 'Root folder from where your static files will be served.'
+    class_option :template, aliases: '-t', banner: 'TEMPLATE', type: :string, desc: 'Custom template file in ERB format to be used instead of the default.'
 
     class_option :mixin, type: :boolean, desc: 'Choose to use the Mixin Directives instead of Placeholder Selectors.'
     class_option :rails, type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
@@ -104,7 +105,8 @@ module Spriteful
         root: options.root,
         format: options.format,
         rails: options.rails?,
-        mixin: options.mixin?
+        mixin: options.mixin?,
+        template: options.template? ? File.expand_path(options.template) : nil
       }
     end
 
