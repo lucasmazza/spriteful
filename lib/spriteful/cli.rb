@@ -61,6 +61,20 @@ module Spriteful
       save_options
     end
 
+    def template
+      create_file "spriteful.#{options.format}", Spriteful::Stylesheet.read_template(options.format)
+    end
+
+    protected
+    def self.dispatch(command, args, opts, config)
+      if args.first == 'template'
+        command = args.shift
+      else
+        command = 'execute'
+      end
+      super(command, args, opts, config)
+    end
+
     private
     # Internal: Gets an instance of `Spriteful::Optimizer`.
     def optimizer

@@ -36,7 +36,7 @@ module Spriteful
       @format = options[:format]
       @mixin = options.fetch(:mixin, false)
       @rails = options.fetch(:rails, false)
-      @template = options[:template] || File.expand_path("../stylesheets/template.#{@format}.erb", __FILE__)
+      @template = options[:template] || self.expand_template_path(@format)
 
       @path = @destination.join(name)
     end
@@ -57,6 +57,15 @@ module Spriteful
     def name
       extension = rails? ? rails_extension : format
       "#{sprite_name}.#{extension}"
+    end
+
+    def self.read_template(format)
+      path = expand_template_path(format)
+      File.read(path)
+    end
+
+    def self.expand_template_path(format)
+      File.expand_path("../stylesheets/template.#{format}.erb", __FILE__)
     end
 
     protected
