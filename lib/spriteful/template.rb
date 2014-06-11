@@ -8,6 +8,9 @@ module Spriteful
     # Public: Gets the sprite object that is being rendered with this template.
     attr_reader :sprite
 
+    # Public: Gets the command line options used to create the current sprite.
+    attr_reader :cli_options
+
     # Public: Initializes a Template object.
     #
     # sprite  - A instance of the Spriteful::Sprite object associated to this
@@ -24,6 +27,7 @@ module Spriteful
       @sprite = sprite
       @options = options
       @destination = Pathname.new(options[:destination])
+      @cli_options = options[:cli_options]
 
       if @options[:root]
         @root = Pathname.new(File.expand_path(options[:root]))

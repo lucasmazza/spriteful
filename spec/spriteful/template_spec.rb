@@ -5,6 +5,13 @@ describe Spriteful::Template do
   let(:options) { { destination: File.expand_path('tmp/output') } }
   subject(:template) { Spriteful::Template.new(sprite, options) }
 
+  describe '#cli_options' do
+    it 'returns the cli_options provided in the options' do
+      options[:cli_options] = %w(one two three)
+      expect(template.cli_options).to eq(%w(one two three))
+    end
+  end
+
   describe '#class_name_for' do
     it 'formats the object name into a suitable CSS selector name' do
       thing = double(name: 'Thing_name.jpg')
