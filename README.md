@@ -121,6 +121,27 @@ images under `icons` will generate the `icons.png` and `icons.css` files. This c
 enforces previsibility over generated files and helps when regenating existing sprites whenever
 you need to add a new source to an existing sprite.
 
+## Custom templates
+
+If you need further customization of the sprite CSS, you can use a custom ERB template
+to be used instead of the builtin templates.
+
+```bash
+spriteful  image/icons --template custom_template.erb
+```
+
+In this case, the `custom_template.erb` file will be evaluated in the context of a
+`Spriteful::Template` instance. Please check this class documentation and source
+to see all the available attributes and helpers.
+
+You can copy one of the builtin templates to your working directory with the `template`
+subcommand.
+
+```bash
+spriteful template
+# create  spriteful.css
+```
+
 ## SVG Support
 
 Spriteful has a basic support for dealing with SVG images (and not only PNGs). SVG images
@@ -161,6 +182,7 @@ If you are using SVG images, the embedded SVG as data URI will be optimized with
 * `--destination` (`-d`) - Directory to save the generated image(s).
 * `--rails` (`-r`) - Forces rails specific settings, see [Spriteful and Rails](#spriteful-and-rails) for more info.
 * `--format` (`-f`) - Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".
+* `--template` (`-t`) - The path for a custom Stylesheet template.
 * `--mixin` - Choose to use the Mixin Directives instead of Placeholder Selector.
 * `--horizontal` - Changes the sprite orientation to horizontal, since all sprites are combined vertically by default.
 * `--save` - Saves the provided arguments for later use.

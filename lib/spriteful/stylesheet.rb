@@ -1,5 +1,3 @@
-require 'erb'
-require 'pathname'
 require 'base64'
 
 module Spriteful
@@ -16,7 +14,7 @@ module Spriteful
     attr_reader :path
 
     # Public: returns the custom template path.
-    attr_reader :template
+    attr_reader :template_path
 
     # Public: Initialize a Stylesheet
     #
@@ -28,17 +26,14 @@ module Spriteful
     #                 :rails  - A flag to generate Asset Pipeline compatible Stylesheets.
     def initialize(sprite, destination, options = {})
       @sprite = sprite
-      @destination = Pathname.new(destination)
-      @root = nil
-      if options[:root]
-        @root = Pathname.new(File.expand_path(options[:root]))
-      end
-      @format = options[:format]
-      @mixin = options.fetch(:mixin, false)
-      @rails = options.fetch(:rails, false)
-      @template = options[:template] || File.expand_path("../stylesheets/template.#{@format}.erb", __FILE__)
+      @options = options
+      @destination = destination
 
-      @path = @destination.join(name)
+      @format = options[:format]
+      @rails = !!options[:rails]
+      @template_path = options[:template] || self.class.expand_template_path(@format)
+
+      @path = File.join(@destination, name)
     end
 
     # Public: renders the CSS code for this Stylesheet.
@@ -47,7 +42,8 @@ module Spriteful
     #
     # Returns the CSS code as a 'String'.
     def render
-      ERB.new(File.read(template), nil, '-').result(binding)
+      template = Template.new(@sprite, template_options)
+      template.render(File.read(template_path))
     end
 
     # Public: returns this Stylesheet name, based
@@ -59,26 +55,30 @@ module Spriteful
       "#{sprite_name}.#{extension}"
     end
 
+    # Internal: Reads the default template Stylesheet for the given format.
+    #
+    # Returns a String.
+    def self.read_template(format)
+      path = expand_template_path(format)
+      File.read(path)
+    end
+
+    # Internal: Expands the path to the default stylesheet for the given format.
+    #
+    # Returns the path as a String.
+    def self.expand_template_path(format)
+      File.expand_path("../stylesheets/template.#{format}.erb", __FILE__)
+    end
+
     protected
+
+    def template_options
+      @options.merge(destination: @destination, cli_options: Spriteful.options)
+    end
 
     # Internal: returns the 'rails' flag.
     def rails?
       @rails
-    end
-
-    # Internal: returns the 'mixin' flag.
-    def mixin?
-      @mixin
-    end
-
-    # Internal: select the extension prefix for the SCSS selector.
-    def extension_prefix
-      mixin? ? '@mixin ' : '%'
-    end
-
-    # Internal: select the extension strategy for the SCSS selector.
-    def extension_strategy
-      mixin? ? '@include ' : '@extend %'
     end
 
     # Internal: defines the file extension to be used with
@@ -101,39 +101,6 @@ module Spriteful
         sprite.name
       when 'scss'
         "_#{sprite.name}"
-      end
-    end
-
-    # Internal: sanitizes the 'name' of a given object to
-    # be used as a CSS selector class.
-    #
-    # Returns a 'String'.
-    def class_name_for(object)
-      object.name.split('.').first.downcase.tr('_', '-')
-    end
-
-    # Internal: computes a relative path between the sprite
-    # path and the stylesheet expected location.
-    #
-    # Returns a 'String'.
-    def image_url(sprite)
-      path = Pathname.new(sprite.path)
-      if @rails
-        "sprites/#{sprite.filename}"
-      elsif @root
-        "/#{path.relative_path_from(@root)}"
-      else
-        path.relative_path_from(@destination)
-      end
-    end
-
-    # Internal: Gets an embeddable Data URI of the image if it
-    # is a SVG image.
-    #
-    # Returns a String.
-    def data_uri(image)
-      if image.svg?
-        %['data:image/svg+xml;base64,#{Base64.encode64(image.blob).gsub(/\r?\n/, '')}']
       end
     end
   end
