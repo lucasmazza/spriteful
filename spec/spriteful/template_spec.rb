@@ -74,7 +74,7 @@ describe Spriteful::Template do
   describe '#data_uri' do
     it 'returns a Base64 encoded String for the SVG image' do
       image = double(svg?: true, blob: '<svg />')
-      expect(template.data_uri(image)).to eq('data:image/svg+xml;base64,PHN2ZyAvPg==')
+      expect(template.data_uri(image)).to eq("'data:image/svg+xml;base64,PHN2ZyAvPg=='")
     end
   end
 
