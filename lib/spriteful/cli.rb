@@ -89,16 +89,16 @@ module Spriteful
       stylesheet = Spriteful::Stylesheet.new(sprite, File.expand_path(options.stylesheets), stylesheet_options)
 
       sprite.combine!
-      create_file sprite.path, sprite.blob
-      create_file stylesheet.path, stylesheet.render
       if options.optimize?
         if optimizer.enabled?
-          say_status :optimizing, relative_to_original_destination_root(sprite.path)
-          optimizer.optimize!(sprite.path)
+          optimizer.optimize!(sprite.tmp_path)
         else
           say_status :optimizing, "No optimizer found. Please install at least one of the following: #{optimizer.optimizers.join(', ')}.", :yellow
         end
       end
+      create_file sprite.path, sprite.blob
+      create_file stylesheet.path, stylesheet.render
+      sprite.cleanup
     end
 
     # Internal: Saves the existing options on 'ARGV' to the '.spritefulrc'
