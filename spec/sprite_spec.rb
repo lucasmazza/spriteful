@@ -114,4 +114,13 @@ describe Spriteful::Sprite do
       expect(red.left).to eq(0)
     end
   end
+
+  describe '#cleanup' do
+    it 'removes the sprite temporary file' do
+      sprite = Spriteful::Sprite.new(source, destination)
+      sprite.cleanup
+
+      expect(sprite.tmp_path).to be_nil
+    end
+  end
 end
