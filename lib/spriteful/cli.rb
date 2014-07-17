@@ -4,6 +4,7 @@ require 'thor/group'
 module Spriteful
   class CLI < Thor::Group
     include Thor::Actions
+
     desc 'Generates image sprites with corresponding stylesheets.'
 
     argument :sources, type: :array, desc: 'Images to generate the sprites.', default: []
@@ -22,6 +23,8 @@ module Spriteful
 
     class_option :version, type: :boolean, aliases: '-v'
     class_option :optimize, type: :boolean, default: true, desc: 'Optimizes the combined PNG and inline SVG images.'
+
+    class_option :force, type: :boolean, group: :runtime, desc: 'Always overwrite files that already exist.'
 
     # Public: Gets the CLI banner for the Thor help message.
     #
