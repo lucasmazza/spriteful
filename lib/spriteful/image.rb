@@ -1,3 +1,4 @@
+require 'mini_magick'
 require 'svg_optimizer'
 
 module Spriteful
@@ -30,12 +31,12 @@ module Spriteful
     # object that was initialized from the real image blob.
     #
     # magick_image - an 'Magick::Image' object.
-    def initialize(magick_image, optimize=true)
-      @source = magick_image
-      @path   = magick_image.base_filename
+    def initialize(path, optimize = true)
+      @source = MiniMagick::Image.open(path)
+      @path   = path
       @name   = File.basename(@path)
-      @width  = magick_image.columns
-      @height = magick_image.rows
+      @width  = @source['width']
+      @height = @source['height']
       @optimize = optimize
 
       @top    = 0

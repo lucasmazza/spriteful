@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'thor', '>= 0.18.1', '< 2.0'
-  spec.add_dependency 'rmagick', '~> 2.13.2'
+  spec.add_dependency 'mini_magick', '~> 3.7'
   spec.add_dependency 'svg_optimizer'
   spec.add_dependency 'image_optim'
 

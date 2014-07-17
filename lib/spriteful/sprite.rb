@@ -1,4 +1,3 @@
-require 'RMagick'
 require 'tempfile'
 
 module Spriteful
@@ -54,8 +53,7 @@ module Spriteful
       @name     = File.basename(source_dir)
       @filename = "#{name}.png"
       @path     = File.expand_path(File.join(destination, @filename))
-      @list     = Magick::ImageList.new(*sources) { self.background_color = 'none' }
-      @images   = initialize_images(@list)
+      @images   = initialize_images(sources)
 
       @height, @width = detect_dimensions
       @tmpfile = Tempfile.new(filename)
@@ -66,12 +64,19 @@ module Spriteful
     #
     # Returns nothing.
     def combine!
-      combined = Magick::Image.new(width, height)
-      combined.opacity = Magick::MaxRGB
-      @images.each do |image|
-        combined.composite!(image.source, image.left.abs, image.top.abs, Magick::SrcOverCompositeOp)
+      # combined = MiniMagick::Image.new(width, height)
+      # combined.opacity = MiniMagick::MaxRGB
+      # @images.each do |image|
+      #   combined.composite!(image.source, image.left.abs, image.top.abs, MiniMagick::SrcOverCompositeOp)
+      # end
+      combined = @images.drop(1).inject(@images.first.source) do |composed, image|
+        composed.composite(image.source, 'png') do |composition|
+          composition.compose 'over'
+          composition.geometry "+#{image.width}+#{image.height}"
+        end
       end
-      @tmpfile.write(combined.to_blob { self.format = 'png' })
+
+      @tmpfile.write(combined.to_blob)
       @tmpfile.close
     end
 
@@ -130,20 +135,19 @@ module Spriteful
       [height, width]
     end
 
-    # Internal: Initializes a collection of 'Image' objects
-    # based on the 'source' images. The images will have
-    # the source images metadata and the required 'top' and
-    # 'left' coordinates that the image will be placed
-    # in the sprite.
+    # Internal: Initializes a collection of 'Image' objects based on the
+    # 'source' images. The images will have the source images metadata and the
+    # required 'top' and 'left' coordinates that the image will be placed in the
+    # sprite.
     #
-    # list - a 'RMagick::ImageList' of sources.
-    # Returns an Array
-    def initialize_images(list)
+    # paths - A 'Array' of source paths.
+    #
+    # Returns an Array.
+    def initialize_images(paths)
       sprite_position = 0
-      images = []
 
-      list.to_a.each_with_index do |magick_image, index|
-        image = Image.new(magick_image, @optimize)
+      paths.each_with_index.map do |path, index|
+        image = Image.new(path, @optimize)
 
         if vertical?
           image.top = sprite_position
@@ -152,9 +156,9 @@ module Spriteful
           image.left = sprite_position
           sprite_position -= image.width + spacing
         end
-        images << image
+
+        image
       end
-      images
     end
   end
 end
