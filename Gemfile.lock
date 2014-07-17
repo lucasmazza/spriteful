@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    spriteful (0.3.2)
+    spriteful (0.3.3)
       image_optim
       rmagick (~> 2.13.2)
       svg_optimizer
