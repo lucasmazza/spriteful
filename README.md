@@ -171,7 +171,7 @@ Future versions of Spriteful could have support for generating composed images a
 
 Spriteful supports PNG optimization through the [image_optim](https://github.com/toy/image_optim)
 gem. You should have one of the following utilities present on your system: `pngcrush`, `pngout`,
-`optipng` or `advpng`. If none can be found, the optimization will be skipped.
+`optipng`, `advpng` or `pngquant`. If none can be found, the optimization will be skipped.
 
 If you are using SVG images, the embedded SVG as data URI will be optimized with the
 [svg_optimizer](https://github.com/fnando/svg_optimizer)  gem.

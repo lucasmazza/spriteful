@@ -28,7 +28,7 @@ module Spriteful
 
     # Public: Gets a list of supported optimizers.
     def optimizers
-      %w(pngcrush pngout optipng advpng)
+      %w(pngcrush pngout optipng advpng pngquant)
     end
 
     private
