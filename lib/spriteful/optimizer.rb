@@ -5,8 +5,6 @@ module Spriteful
   # optimize PNG images and won't crash if no PNG optimizer is
   # presented.
   class Optimizer
-    DEFAULTS = { jhead: false, jpegoptim: false }
-
     # Public: Initializes the Optimizer, checking for missing
     # optimizers that should be ignored when optimizing the image.
     def initialize
@@ -30,7 +28,7 @@ module Spriteful
 
     # Public: Gets a list of supported optimizers.
     def optimizers
-      %w(pngcrush pngout optipng advpng pngquant)
+      ImageOptim::Worker.klasses.map { |k| k.name.split('::').last.downcase }
     end
 
     private
@@ -40,7 +38,7 @@ module Spriteful
     #
     # Returns a Hash.
     def optimization_options
-      @options ||= optimizers.each_with_object(DEFAULTS.dup) do |key, hash|
+      @options ||= optimizers.each_with_object({}) do |key, hash|
         hash[key.to_sym] = command_exists?(key)
       end
     end
