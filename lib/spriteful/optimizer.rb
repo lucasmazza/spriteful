@@ -8,8 +8,8 @@ module Spriteful
     # Public: Initializes the Optimizer, checking for missing
     # optimizers that should be ignored when optimizing the image.
     def initialize
-      @optimizer = ImageOptim.new(optimization_options)
       @workers = ImageOptim::Worker.klasses.map { |k| k.name.split('::').last.downcase }
+      @optimizer = ImageOptim.new(optimization_options)
     end
 
     # Public: Optimizes and replaces the given path.
@@ -45,7 +45,7 @@ module Spriteful
     end
 
     def supported_worker?(worker)
-      worker =~ /png/i
+      !!(worker =~ /png/i)
     end
 
     # Internal: Checks if a command exists.
