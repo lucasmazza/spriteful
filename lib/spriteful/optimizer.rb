@@ -9,6 +9,7 @@ module Spriteful
     # optimizers that should be ignored when optimizing the image.
     def initialize
       @optimizer = ImageOptim.new(optimization_options)
+      @workers = ImageOptim::Worker.klasses.map { |k| k.name.split('::').last.downcase }
     end
 
     # Public: Optimizes and replaces the given path.
@@ -26,9 +27,9 @@ module Spriteful
       optimization_options.values.any?
     end
 
-    # Public: Gets a list of supported optimizers.
+    # Private: Gets a list of supported optimizers.
     def optimizers
-      ImageOptim::Worker.klasses.map { |k| k.name.split('::').last.downcase }
+      @workers.select { |w| supported_worker?(w) }
     end
 
     private
@@ -38,9 +39,13 @@ module Spriteful
     #
     # Returns a Hash.
     def optimization_options
-      @options ||= optimizers.each_with_object({}) do |key, hash|
-        hash[key.to_sym] = command_exists?(key)
+      @options ||= @workers.each_with_object({}) do |worker, hash|
+        hash[worker.to_sym] = supported_worker?(worker) && command_exists?(worker)
       end
+    end
+
+    def supported_worker?(worker)
+      worker =~ /png/i
     end
 
     # Internal: Checks if a command exists.
