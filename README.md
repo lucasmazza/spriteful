@@ -180,6 +180,7 @@ If you are using SVG images, the embedded SVG as data URI will be optimized with
 
 * `--stylesheets` (`-s`) - Directory to save the generated stylesheet(s), instead of copying them to the clipboard.
 * `--destination` (`-d`) - Directory to save the generated image(s).
+* `--name` (`-n`) - Name of generated sprite.
 * `--rails` (`-r`) - Forces rails specific settings, see [Spriteful and Rails](#spriteful-and-rails) for more info.
 * `--format` (`-f`) - Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".
 * `--template` (`-t`) - The path for a custom Stylesheet template.

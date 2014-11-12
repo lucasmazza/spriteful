@@ -12,6 +12,7 @@ module Spriteful
     class_option :format, aliases: '-f', banner: 'FORMAT', type: :string, desc: 'Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".', default: 'css'
     class_option :stylesheets, aliases: '-s', banner: 'STYLESHEETS_DIR', type: :string, desc: 'Directory to save the generated stylesheet(s), instead of copying them to the clipboard.', default: Dir.pwd
     class_option :destination, aliases: '-d', banner: 'DESTINATION_DIR', type: :string, desc: 'Destination directory to save the combined image(s).', default: Dir.pwd
+    class_option :name, aliases: '-n', banner: 'SPRITE_NAME', type: :string, desc: 'Name of generated sprite.'
     class_option :root, aliases: '-r', banner: 'ROOT_DIR', type: :string, desc: 'Root folder from where your static files will be served.'
     class_option :template, aliases: '-t', banner: 'TEMPLATE', type: :string, desc: 'Custom template file in ERB format to be used instead of the default.'
 
@@ -135,7 +136,8 @@ module Spriteful
       {
         horizontal: options.horizontal?,
         spacing: options.spacing,
-        optimize: options.optimize
+        optimize: options.optimize,
+        name: options.name
       }
     end
 

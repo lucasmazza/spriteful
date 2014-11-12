@@ -51,7 +51,7 @@ module Spriteful
       @spacing     = options[:spacing] || 0
       @optimize    = options[:optimize]
 
-      @name     = File.basename(source_dir)
+      @name     = options[:name] || File.basename(source_dir)
       @filename = "#{name}.png"
       @path     = File.expand_path(File.join(destination, @filename))
       @list     = Magick::ImageList.new(*sources) { self.background_color = 'none' }
