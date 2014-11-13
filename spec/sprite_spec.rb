@@ -52,6 +52,11 @@ describe Spriteful::Sprite do
       sprite = Spriteful::Sprite.new(source, destination)
       expect(sprite.filename).to eq('simple.png')
     end
+
+    it 'returns the name option if it is present' do
+      sprite = Spriteful::Sprite.new(source, destination, name: 'foo')
+      expect(sprite.filename).to eq('foo.png')
+    end
   end
 
   describe '#combine!' do

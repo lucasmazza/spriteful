@@ -16,6 +16,16 @@ describe Spriteful::Stylesheet do
       expect(output).to match(/.simple.red \{/)
     end
 
+    it 'uses the custom name of the sprite' do
+      sprite = Spriteful::Sprite.new(source, destination, name: 'foo')
+      stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'css')
+      output = stylesheet.render
+
+      expect(output).to match(/.foo \{/)
+      expect(output).to match(/.foo.blue \{/)
+      expect(output).to match(/.foo.red \{/)
+    end
+
     it 'renders the SCSS format' do
       sprite = Spriteful::Sprite.new(source, destination)
       stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss')
@@ -24,6 +34,16 @@ describe Spriteful::Stylesheet do
       expect(output).to match(/%simple-sprite \{/)
       expect(output).to match(/%simple-sprite-blue \{/)
       expect(output).to match(/%simple-sprite-red \{/)
+    end
+
+    it 'uses the custom name of the sprite for SCSS format' do
+      sprite = Spriteful::Sprite.new(source, destination, name: 'foo')
+      stylesheet = Spriteful::Stylesheet.new(sprite, destination, format: 'scss')
+      output = stylesheet.render
+
+      expect(output).to match(/%foo-sprite \{/)
+      expect(output).to match(/%foo-sprite-blue \{/)
+      expect(output).to match(/%foo-sprite-red \{/)
     end
 
     it 'renders the SCSS format using mixin' do
