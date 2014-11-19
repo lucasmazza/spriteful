@@ -111,7 +111,7 @@ module Spriteful
     # Returns nothing.
     def save_options
       if save_options?
-        parts = Shellwords.join(Spriteful.options)
+        parts = Shellwords.join(@cli_options)
         create_file '.spritefulrc', parts + "\n", force: true
       end
     end
@@ -124,7 +124,8 @@ module Spriteful
         format: options.format,
         rails: options.rails?,
         mixin: options.mixin?,
-        template: template
+        template: template,
+        cli_options: @cli_options
       }
     end
 
@@ -147,8 +148,8 @@ module Spriteful
     #
     # Returns nothing.
     def prepare_options!
-      Spriteful.options = ARGV.dup.uniq
-      @save_options = !!Spriteful.options.delete('--save')
+      @cli_options = ARGV.dup.uniq
+      @save_options = !!@cli_options.delete('--save')
 
       if options.rails?
         sources.concat(detect_sources)

@@ -9,8 +9,4 @@ require 'spriteful/template'
 
 module Spriteful
   class EmptySourceError < Thor::Error; end
-
-  class << self
-    attr_accessor :options
-  end
 end

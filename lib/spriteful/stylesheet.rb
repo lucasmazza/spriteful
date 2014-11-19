@@ -73,7 +73,7 @@ module Spriteful
     protected
 
     def template_options
-      @options.merge(destination: @destination, cli_options: Spriteful.options)
+      @options.merge(destination: @destination)
     end
 
     # Internal: returns the 'rails' flag.

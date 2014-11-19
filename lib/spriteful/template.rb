@@ -27,7 +27,7 @@ module Spriteful
       @sprite = sprite
       @options = options
       @destination = Pathname.new(options[:destination])
-      @cli_options = options[:cli_options]
+      @cli_options = Array(options[:cli_options])
 
       if @options[:root]
         @root = Pathname.new(File.expand_path(options[:root]))
