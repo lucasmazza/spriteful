@@ -11,6 +11,9 @@ module Spriteful
     # Public: Gets the command line options used to create the current sprite.
     attr_reader :cli_options
 
+    # Public: Gets the stylesheet format.
+    attr_reader :format
+
     # Public: Initializes a Template object.
     #
     # sprite  - A instance of the Spriteful::Sprite object associated to this
@@ -28,6 +31,7 @@ module Spriteful
       @options = options
       @destination = Pathname.new(options[:destination])
       @cli_options = options[:cli_options]
+      @format = options[:format]
 
       if @options[:root]
         @root = Pathname.new(File.expand_path(options[:root]))
@@ -107,6 +111,11 @@ module Spriteful
     #
     # Returns a String.
     def render(source)
+      sprite = Decorators::Sprite.new(self, self.sprite)
+      images = self.sprite.images.map do |image|
+        Decorators::Image.new(self, sprite, image)
+      end
+
       ERB.new(source, nil, '-').result(binding)
     end
   end

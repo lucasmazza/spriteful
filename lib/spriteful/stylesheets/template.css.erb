@@ -6,25 +6,21 @@
  * Below there are several CSS classes to use the '<%= sprite.name %>'
  * sprite on you HTML code, as in:
  *
- *  <div class='<%= class_name_for(sprite) %> <%= class_name_for(sprite.images.first) %>'>Your markup here.</div>
+ *  <div class='<%= sprite.class_name %> <%= images.first.class_name %>'>Your markup here.</div>
  */
 
-.<%= class_name_for(sprite) %> {
-  <% if rails? -%>
-  background-image: url(<%%= image_url('<%= image_url(sprite) %>') %>);
-  <% else -%>
-  background-image: url(<%= image_url(sprite) %>);
-  <% end -%>
+.<%= sprite.class_name %> {
+  background-image: <%= sprite.background_image %>;
   background-repeat: no-repeat;
 }
-<% sprite.each_image do |image| %>
-.<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
-  background-position: <%= image.left %>px <%= image.top %>px;
+<% images.each do |image| %>
+<%= image.selector %> {
+  background-position: <%= image.background_position %>;
 }
 <% if image.svg? %>
-.svg .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
-  background-image: url(<%= data_uri(image) %>);
+.svg <%= image.selector %> {
+  background-image: url(<%= image.data_uri %>);
   background-position: 0 0;
 }
 <% end -%>
-<% end %>
+<% end -%>

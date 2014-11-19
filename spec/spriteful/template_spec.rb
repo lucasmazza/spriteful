@@ -81,6 +81,7 @@ describe Spriteful::Template do
   describe '#render' do
     it 'renders the given ERB string in the template context' do
       erb = 'ZOMG <%= self.class.name %>'
+      allow(sprite).to receive(:images).and_return([])
 
       expect(template.render(erb)).to eq('ZOMG Spriteful::Template')
     end

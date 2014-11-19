@@ -20,25 +20,21 @@
 // There also will be available a variable named '$<%= class_name_for(sprite) %>-sprite-names'
 // with all the images inside this sprite.
 
-<%= extension_prefix %><%= class_name_for(sprite) %>-sprite {
-  <%- if rails? -%>
-  background-image: image-url('<%= image_url(sprite) %>');
-  <%- else -%>
-  background-image: url(<%= image_url(sprite) %>);
-  <%- end -%>
+<%= sprite.class_name %> {
+  background-image: <%= sprite.background_image %>;
   background-repeat: no-repeat;
 }
-<% sprite.each_image do |image| %>
-<%= extension_prefix %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %> {
-  <%= extension_strategy %><%= class_name_for(sprite) %>-sprite;
-  background-position: <%= image.left %>px <%= image.top %>px;
+<% images.each do |image| %>
+<%= image.selector %> {
+  <%= sprite.extension %>
+  background-position: <%= image.background_position %>;
   <%- if image.svg? %>
   .svg & {
-    background-image: url(<%= data_uri(image) %>);
+    background-image: url(<%= image.data_uri %>);
     background-position: 0 0;
   }
   <%- end -%>
 }
-<% end %>
+<% end -%>
 
-$<%= class_name_for(sprite) %>-sprite-names: <%= sprite.images.map { |i| class_name_for(i) }.join(' ') %>;
+<%= sprite.var_with_name_list %>
