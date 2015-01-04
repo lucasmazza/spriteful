@@ -6,6 +6,9 @@ module Spriteful
   # of images into a single one, and providing the required information
   # about the related images.
   class Sprite
+    # RMagick 2.13.4 replaced 'MaxRGB' with 'QuantumRange'.
+    OPACITY = Magick.const_defined?(:MaxRGB) ? Magick::MaxRGB : Magick::QuantumRange
+
     # Public: returns the path where the sprite will be saved.
     attr_reader :path
 
@@ -67,7 +70,7 @@ module Spriteful
     # Returns nothing.
     def combine!
       combined = Magick::Image.new(width, height)
-      combined.opacity = Magick::MaxRGB
+      combined.opacity = OPACITY
       @images.each do |image|
         combined.composite!(image.source, image.left.abs, image.top.abs, Magick::SrcOverCompositeOp)
       end
