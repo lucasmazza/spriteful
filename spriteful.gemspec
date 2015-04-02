@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir['LICENSE', 'README.md', 'lib/**/*']
   spec.bindir        = 'exe'
-  spec.executables   = Dir['exe/*'].map { |f| File.basename(f) }
+  spec.executables   = ['spriteful']
   spec.test_files    = Dir['spec/**/*']
   spec.require_paths = ['lib']
 
