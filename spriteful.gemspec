@@ -12,7 +12,8 @@ Gem::Specification.new do |spec|
   spec.license       = 'Apache 2.0'
 
   spec.files         = Dir['LICENSE', 'README.md', 'lib/**/*']
-  spec.executables   = Dir['bin/*'].map { |f| File.basename(f) }
+  spec.bindir        = 'exe'
+  spec.executables   = Dir['exe/*'].map { |f| File.basename(f) }
   spec.test_files    = Dir['spec/**/*']
   spec.require_paths = ['lib']
 
