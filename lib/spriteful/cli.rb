@@ -162,15 +162,28 @@ module Spriteful
     #
     # Returns an Array of directories.
     def detect_sources
-      Dir['app/assets/images/sprites/*'].select { |dir| File.directory?(dir) }
+      deprecated = Dir['app/assets/images/sprites/*'].select { |dir| File.directory?(dir) }
+
+      if deprecated.any?
+        deprecate "Deprecated sources found: #{deprecated.map { |path| "'#{path}'" }.join(', ')}.\nMove them to 'app/assets/sprites'."
+      end
+
+      deprecated + Dir['app/assets/sprites/*'].select { |dir| File.directory?(dir) }
     end
 
     # Internal: Sets Rails specific default options to the 'options' object.
     #
     # Returns nothing.
     def set_rails_defaults
-      options['stylesheets'] = File.expand_path('app/assets/stylesheets/sprites')
-      options['destination'] = File.expand_path('app/assets/images/sprites')
+      deprecated_stylesheets = 'app/assets/stylesheets/sprites'
+      deprecated_destination = 'app/assets/images/sprites'
+
+      if File.directory?(deprecated_destination) || File.directory?(deprecated_destination)
+        deprecate "Sprites were previously saved at '#{deprecated_stylesheets}' and '#{deprecated_destination}'. They are now at 'app/assets/sprites' instead."
+      end
+
+      options['stylesheets'] = File.expand_path('app/assets/sprites')
+      options['destination'] = File.expand_path('app/assets/sprites')
     end
 
     # Internal: Checks if we should save the supplied user arguments into
@@ -179,6 +192,10 @@ module Spriteful
     # Returns true or false.
     def save_options?
       @save_options
+    end
+
+    def deprecate(message)
+      say_status :deprecated, message, :red
     end
   end
 end
