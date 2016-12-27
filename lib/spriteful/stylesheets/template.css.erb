@@ -15,12 +15,28 @@
   <% else -%>
   background-image: url(<%= image_url(sprite) %>);
   <% end -%>
+  <%- if scale? -%>
+  background-size: cover;
+  <% end -%>
   background-repeat: no-repeat;
 }
 <% sprite.each_image do |image| %>
 .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
   background-position: <%= image.left %>px <%= image.top %>px;
 }
+<%- if scale? -%>
+.<%= class_name_for(sprite) %>.<%= class_name_for(image) %>-3x {
+  background-position: <%= image.left %>px <%= image.top %>px;
+}
+
+.<%= class_name_for(sprite) %>.<%= class_name_for(image) %>-2x {
+  background-position: <%= image.left / 2 %>px <%= image.top / 2 %>px;
+}
+
+.<%= class_name_for(sprite) %>.<%= class_name_for(image) %>-1x {
+  background-position: <%= image.left / 3 %>px <%= image.top / 3 %>px;
+}
+<% end -%>
 <% if image.svg? %>
 .svg .<%= class_name_for(sprite) %>.<%= class_name_for(image) %> {
   background-image: url(<%= data_uri(image) %>);

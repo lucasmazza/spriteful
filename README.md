@@ -185,6 +185,7 @@ If you are using SVG images, the embedded SVG as data URI will be optimized with
 * `--format` (`-f`) - Format to generate the sprite(s) stylesheet(s). Either "css" or "scss".
 * `--template` (`-t`) - The path for a custom Stylesheet template.
 * `--mixin` - Choose to use the Mixin Directives instead of Placeholder Selector.
+* `--scale` - Creates 3 css classes. Example: image with 90x90 `.images.update-icon-3x { width: 90px; height: 90px; }`, `.images.update-icon-2x { width: 45px; height: 45px; }` and `.images.update-icon-1x { width: 30px; height: 30px; }`.
 * `--horizontal` - Changes the sprite orientation to horizontal, since all sprites are combined vertically by default.
 * `--save` - Saves the provided arguments for later use.
 * `--spacing` - Add some spacing between the images in the sprite.

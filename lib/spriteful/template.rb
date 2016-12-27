@@ -67,6 +67,11 @@ module Spriteful
       !!@options[:mixin]
     end
 
+    # Public: Gets the ':scale' flag.
+    def scale?
+      !!@options[:scale]
+    end
+
     # Public: Gets the ':rails' flag.
     def rails?
       !!@options[:rails]
