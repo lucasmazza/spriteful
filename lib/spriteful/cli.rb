@@ -17,6 +17,7 @@ module Spriteful
     class_option :template, aliases: '-t', banner: 'TEMPLATE', type: :string, desc: 'Custom template file in ERB format to be used instead of the default.'
 
     class_option :mixin, type: :boolean, desc: 'Choose to use the Mixin Directives instead of Placeholder Selectors.'
+    class_option :scale, type: :boolean, desc: 'Scale property changes the size of the image'
     class_option :rails, type: :boolean, desc: 'Follow default conventions for a Rails application with the Asset Pipeline.'
     class_option :horizontal, type: :boolean, desc: 'Change the sprite orientation to "horizontal".'
     class_option :save, type: :boolean, desc: 'Save the supplied arguments to ".spritefulrc".'
@@ -124,6 +125,7 @@ module Spriteful
         format: options.format,
         rails: options.rails?,
         mixin: options.mixin?,
+        scale: options.scale?,
         template: template,
         cli_options: @cli_options
       }

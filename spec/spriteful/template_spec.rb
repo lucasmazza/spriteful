@@ -42,6 +42,13 @@ describe Spriteful::Template do
     end
   end
 
+  describe '#scale?' do
+    it 'returns true when the :scale flag is true' do
+      options[:scale] = true
+      expect(template.scale?).to be(true)
+    end
+  end
+
   describe '#rails?' do
     it 'returns true when the :rails flag is true' do
       options[:rails] = true

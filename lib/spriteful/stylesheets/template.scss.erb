@@ -26,6 +26,9 @@
   <%- else -%>
   background-image: url(<%= image_url(sprite) %>);
   <%- end -%>
+  <%- if scale? -%>
+  background-size: cover;
+  <%- end -%>
   background-repeat: no-repeat;
 }
 <% sprite.each_image do |image| %>
@@ -39,6 +42,40 @@
   }
   <%- end -%>
 }
+<%- if scale? -%>
+<%= extension_prefix %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %>-3x {
+  <%= extension_strategy %><%= class_name_for(sprite) %>-sprite;
+  background-position: <%= image.left %>px <%= image.top %>px;
+  <%- if image.svg? %>
+  .svg & {
+    background-image: url(<%= data_uri(image) %>);
+    background-position: 0 0;
+  }
+  <%- end -%>
+}
+
+<%= extension_prefix %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %>-2x {
+  <%= extension_strategy %><%= class_name_for(sprite) %>-sprite;
+  background-position: <%= image.left / 2 %>px <%= image.top / 2 %>px;
+  <%- if image.svg? %>
+  .svg & {
+    background-image: url(<%= data_uri(image) %>);
+    background-position: 0 0;
+  }
+  <%- end -%>
+}
+
+<%= extension_prefix %><%= class_name_for(sprite) %>-sprite-<%= class_name_for(image) %>-1x {
+  <%= extension_strategy %><%= class_name_for(sprite) %>-sprite;
+  background-position: <%= image.left / 3 %>px <%= image.top / 3 %>px;
+  <%- if image.svg? %>
+  .svg & {
+    background-image: url(<%= data_uri(image) %>);
+    background-position: 0 0;
+  }
+  <%- end -%>
+}
+<% end %>
 <% end %>
 
 $<%= class_name_for(sprite) %>-sprite-names: <%= sprite.images.map { |i| class_name_for(i) }.join(' ') %>;
